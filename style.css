@@ -1,0 +1,156 @@
+body {
+	background-color: #FDECC7;
+	background-image: url(pic/hatter.jpg);
+	background-repeat: repeat;
+	margin:0px;
+	padding:0px;
+
+font-family: Comic Sans MS;
+}
+div{ behavior: url(iepngfix.htc) }
+body,td,th {
+	color: #774411;
+}
+form { margin: 0; padding: 0; }
+input, select {
+	width: 120px;
+	background:#E6bA8E;
+	border:#CC9900 1px solid;
+	margin: 0px;
+	padding: 0px;
+}
+textarea {
+	background:#E6bA8E;
+	border:#CC9900 1px solid;
+	margin: 0px;
+	padding: 0px;
+}
+.input{
+background-image: url(pic/keret3.gif);
+height:20px;
+font-family: Comic Sans MS;
+font-size:18px;
+}
+
+.small_btn{
+	cursor:pointer;
+	color:#CA3300;
+	font-weight:bold; 
+	font-size:18px;
+	width:105px; 
+	height:56px; 
+	border:0px; 
+	padding:0px; 
+	margin:0px; 
+	background:url(pic/small_btn.gif);
+}
+a.link{
+	white-space:nowrap;
+	font-size:12px;
+	color:#CC6600;
+	text-decoration:none;
+}
+
+a.link:hover {
+	color:#993300;
+}
+.keret_09 {
+	background-image: url(pic/keret9.gif);
+	text-align:left;
+	width:940px;
+	height:51px;
+}
+.menu a{
+	display:block;
+	float:left;
+	white-space:nowrap;
+	font-size:14px;
+	color:#000000;
+	text-decoration:none;
+	background-position:0px -2px;
+	background-repeat:no-repeat;
+	padding:2px 2px 4px 28px;
+	margin-right:13px;
+}
+
+.menu a:hover {
+	color:#993300;
+}
+.main {
+	background-image: url(pic/main.png);
+	text-align:left;
+	width:917px;
+	height:785px;
+	margin:auto;
+	background-repeat: no;
+}
+.logo {
+	background-image: url(pic/fokutya.png);
+	position:absolute; top:30px; left:5px;
+	width:180px;
+	height:185px;
+}
+.keret_01 {
+	background-image: url(pic/keret1.png);
+	position:absolute; top:25px;
+	text-align:left;
+	width:923px;
+	height:319px;
+
+}
+a.button{
+ 	display:block;
+	color:#CA3300;
+	font-weight:bold; 
+	font-size:18px;
+	width:172px; 
+	height:69px; 
+	border:0px; 
+	padding:0px; 
+	margin:0px; 
+	background:url(pic/btn1.gif);
+	text-decoration:none;
+
+}
+.btn_icon{
+	display:block;
+	position:absolute; 
+	left:-30px; 
+	top:-5px; 
+	width:75px; 
+	height:75px;
+	cursor:pointer;
+}
+.btn_icon_kutya{
+	display:block;
+	position:absolute; 
+	left:-35px; 
+	top:-15px; 
+	width:90px; 
+	height:68px;
+	cursor:pointer;
+}
+.btn_text{
+	display:block;
+	width:auto;172;
+	margin-top:23px;
+	text-align:center;
+	vertical-align:middle;
+	font-weight:bold; 
+	font-size:18px;
+
+}
+
+a.feherlink:link     {text-decoration: none; color: #AA3311}
+a.feherlink:visited  {text-decoration: none; color: #AA3311}
+a.feherlink:active   {text-decoration: underline; color: #AA3311}
+a.feherlink:hover    {text-decoration: underline; color: #AA3311}
+
+a.barna:link     {text-decoration: none; color: #774411}
+a.barna:visited  {text-decoration: none; color: #774411}
+a.barna:active   {text-decoration: underline; color: #774411}
+a.barna:hover    {text-decoration: underline; color: #774411}
+.forum{
+	padding-left: 5px;
+	overflow-x: auto;
+}
