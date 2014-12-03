@@ -28,13 +28,13 @@ $nap1=$tomb[2];
 $hatterk=$allapote->adatlap_hatter;
 if($allapote->adatlap_nem==1){$lany="selected";$fiu="";}else{$lany="";$fiu="selected";}
 if($allapote->adatlap_aktiv==0){
-$allapot=hiba("Inaktiv  <a href=inc/adatlap.php?aktiv=1 class='feherlink'>Aktivál</a>");
+$allapot=hiba("Inaktív  <a href=inc/adatlap.php?aktiv=1 class='feherlink'>Aktivál</a>");
 }else{
-$allapot=ok("Aktiv <a href=inc/adatlap.php?aktiv=0 class='feherlink'>Inaktivál</a>");
+$allapot=ok("Aktív <a href=inc/adatlap.php?aktiv=0 class='feherlink'>Inaktivál</a>");
 }
 }
 }else{
-$allapot=hiba("Inaktiv");
+$allapot=hiba("Inaktív");
 $nev1="";$magassags=1;$hajs=1;
 $lakhely="";$sulys=1;$szems=1; $nap1=1;
 $leiras="";$fiu="";$lany=""; $ev1=1996; $honap1=1;
@@ -138,7 +138,7 @@ Jelenlegi E-mail címed: ". $mailom ."<br><form action=inc/bealit.php method=POST
 </td><tr><td width=11 height=11 background=pic/balalso2.jpg></td><td background=pic/hatter8.gif width=450></td><td width=11 height=11 background=pic/jobbalso2.jpg></td></tr></tr></table><br><u>Csontért vásárolható szolgáltatások</u><br><br>
 
 <table border=0 cellpadding=0 cellspacing=0><tr><td width=11 height=11 background=pic/balfelso2.jpg></td><td background=pic/hatter8.gif width=450></td><td width=11 height=11 background=pic/jobbfelso2.jpg></td></tr><tr><td background=pic/hatter8.gif colspan=3 align=center>
-<i>Színes név</i><br><br>Megváltoztathatód a kutyád nevének a szinét. Az ára ". penz($SZINESNEV) .".<br><table><tr><td>Szín:</td><td><form action=inc/bealit.php method=POST><select name=szin id='nevszin' onchange=". '"' ."SzinElonezet('". $_SESSION[nev] ."')". '"' . ">
+<i>Színes név</i><br><br>Megváltoztathatod a kutyád nevének a színét. Az ára ". penz($SZINESNEV) .".<br><table><tr><td>Szín:</td><td><form action=inc/bealit.php method=POST><select name=szin id='nevszin' onchange=". '"' ."SzinElonezet('". $_SESSION[nev] ."')". '"' . ">
 <option value=9 style='color: #800000'>Vörös</option>
 <option value=39 style='color: #B22222'>Tégla</option>
 <option value=8 style='color: #C90000'>Piros</option>
@@ -192,10 +192,10 @@ Jelenlegi E-mail címed: ". $mailom ."<br><form action=inc/bealit.php method=POST
 
 
 
-<i>Gondozás segítõk</i><br><br>". penz($TURBO) ."ért nõvelheted az egészségét és csökkentheted a súlyát.<br><table><tr><td><form action=inc/bealit.php method=POST><select name=cucc><option value=1>100% Egészség</option><option value=2>10% Súly</option></select></td><td><input type=submit value=Elküld></form></td></tr></table>
+<i>Gondozás segítõk</i><br><br>". penz($TURBO) ."ért növelheted az egészségét és csökkentheted a súlyát.<br><table><tr><td><form action=inc/bealit.php method=POST><select name=cucc><option value=1>100% Egészség</option><option value=2>10% Súly</option></select></td><td><input type=submit value=Elküld></form></td></tr></table>
 </td><tr><td width=11 height=11 background=pic/balalso2.jpg></td><td background=pic/hatter8.gif width=450></td><td width=11 height=11 background=pic/jobbalso2.jpg></td></tr></tr></table><br><u>Adatlap</u><br><br>
 <table border=0 cellpadding=0 cellspacing=0><tr><td width=11 height=11 background=pic/balfelso2.jpg></td><td background=pic/hatter8.gif width=450></td><td width=11 height=11 background=pic/jobbfelso2.jpg></td></tr><tr><td background=pic/hatter8.gif colspan=3 align=center>
-Jelenleg adatlapod: ". $allapot ."<br> Ahhoz hogy az adatlapod aktiv legyen minden mezõt ki kell<br> töltened. A beirt adatok mindenki számára láthatóak.<br><table border=0>
+Jelenleg adatlapod: ". $allapot ."<br> Ahhoz hogy az adatlapod aktív legyen minden mezõt ki kell<br> töltened. A beírt adatok mindenki számára láthatóak.<br><table border=0>
 <tr><td align=left>Név:</td><td align=right><form method=POST action=inc/adatlap.php><input type=text name=nev value='". $nev1 ."' maxlength=24></td><td align=left><small>min 3, max 24 karakter</small></td></tr>
 <tr><td align=left>Nem:</td><td align=right><select name=nem><option value=1 ". $lany .">Lány</option><option value=2 ". $fiu .">Fiú</option></select></td><td align=left></td></tr>
 <tr><td align=left>Lakhely:</td><td align=right><input type=text name=lakhely value='". $lakhely ."' maxlength=32></td><td align=left><small>min 2, max 32 karakter</small></td></tr>
@@ -211,7 +211,7 @@ Jelenleg adatlapod: ". $allapot ."<br> Ahhoz hogy az adatlapod aktiv legyen mind
 </table></td><tr><td width=11 height=11 background=pic/balalso2.jpg></td><td background=pic/hatter8.gif width=450></td><td width=11 height=11 background=pic/jobbalso2.jpg></td></tr></tr></table><br><u>Képfeltöltés</u><br><br>
 
 <table border=0 cellpadding=0 cellspacing=0><tr><td width=11 height=11 background=pic/balfelso2.jpg></td><td background=pic/hatter8.gif width=450></td><td width=11 height=11 background=pic/jobbfelso2.jpg></td></tr><tr><td background=pic/hatter8.gif colspan=3 align=center><p style='text-align:justify;'>
-Maximum 256 kilobyte méretû illetve JPG, PNG vagy GIF<br> formátumú fájlt tölthetsz fel! A feltöltõtt képek a<br> ". $SITENAME ." tulajdonát képezik, így azt bármikor a feltöltõ<br> engedélye nélkül törölheti vagy fehasználhatja!</p>
+Maximum 256 kilobyte méretû illetve JPG, PNG vagy GIF<br> formátumú fájlt tölthetsz fel! A feltöltött képek a<br> ". $SITENAME ." tulajdonát képezik, így azt bármikor a feltöltõ<br> engedélye nélkül törölheti vagy felhasználhatja!</p>
 <table border=0><tr><td align=center width=300 colspan=2>Fõ kép:</td></tr>
 <tr>". $kep ."</tr>
 <tr><td><form enctype='multipart/form-data' action='inc/profilepic.php' method='POST'><input name='upload_img' type='file' size=10></td><td><input type='submit' value='OK' style='width:60px;'></form></td></tr>

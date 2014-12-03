@@ -140,7 +140,7 @@ $tagok=mysql_query("SELECT * FROM kutya WHERE kutya_falka = '". $falka->falka_id
 $tags="";
 while($taglista=mysql_fetch_object($tagok))
 {
-$tags.="<tr><td><img src=pic/kutyak/". kutyaszamtofile($taglista->kutya_fajta) . $taglista->kutya_szin .".png width=30 heigth=20></td><td width=100>". idtonev($taglista->kutya_id) ."</td><td>". ($ma-$taglista->kutya_falkaido)/(24*3600) ." napja</td></tr>";
+$tags.="<tr><td><img src=pic/kutyak/". kutyaszamtofile($taglista->kutya_fajta) . $taglista->kutya_szin .".png width=30 heigth=20></td><td width=100>". idtonev($taglista->kutya_id) ."</td><td>". ceil(($ma-$taglista->kutya_falkaido)/(24*3600)) ." napja</td></tr>";
 }
 $adat.='<div id="fade" class="black_overlay"></div><div id="light" class="white_content"><p align=right><a href = "javascript:void(0)" onclick = "info()" class="feherlink">Bezár [x]</a></p><center><u>Taglista</u><table border=0>'. $tags .'</table></center>
 </div>';
@@ -158,7 +158,7 @@ $adat.="<br>Díjak:<table border=0><tr><td><img src=pic/gold_medal.png></td><td>"
 <td><img src=pic/bronze_medal.png></td><td>". $big1 ."X". $big2 ."</td><td><big>". $big1 . mysql_num_rows($harmadik) . $big2 ."</big></td>
 </tr></table>";
 }
-$adat.="<br><table border=0><tr><td align=center>Leirás:</td></tr><tr><td align=left width=1000 height=200 ". $hatter .">". nl2br(ubb_adatlap($falka->falka_leiras))  ."</td></tr></table></center>";
+$adat.="<br><table border=0><tr><td align=center>Leírás:</td></tr><tr><td align=left width=1000 height=200 ". $hatter .">". nl2br(ubb_adatlap($falka->falka_leiras))  ."</td></tr></table></center>";
 
 }}}
 

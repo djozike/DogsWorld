@@ -125,9 +125,9 @@ if(mysql_num_rows($leker)>0)
 		while($tilto=mysql_fetch_object($tilte)){
 		$tilt=hiba(" (Tiltva ". $tilto->forumtilt_ido ." napig)");
 		}}
-		$adat.=$moderator1 ."<table border=0 width=750 CELLSPACING=0 CELLPADDING=0><tr bgcolor=#e6ba8e><td align=left class='forum' colspan=2>
+		$adat.=$moderator1 ."<table border=0 width=750 CELLSPACING=0 CELLPADDING=0><tr background=pic/hatter8.gif><td align=left class='forum' colspan=2>
 		<table border=0 width=750 CELLSPACING=0 CELLPADDING=0><tr><td align=left>". idtonev($forum->forum_kid). $tilt  ."</td><td align=right>". $moderator . str_replace("-",".",$forum->forum_ido) ."</td></tr></table></td></tr>
-		<tr><td bgcolor=#e6ba8e align=center height=105 valign=top width=110><center>". $kep ." </center></td><td align=left valign=top width=640 class='forum'>". nl2br($forum->forum_uzenet) ."</td></tr></table><br>";
+		<tr><td background=pic/hatter8.gif align=center height=105 valign=top width=110><center>". $kep ." </center></td><td align=left valign=top width=640 class='forum'>". nl2br($forum->forum_uzenet) ."</td></tr></table><br>";
 		}
 		$hozzaszolasszam=mysql_query("SELECT * FROM forum WHERE forum_topic = '-". $topic ."'");
 		$hsz_num = mysql_num_rows($hozzaszolasszam);

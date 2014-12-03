@@ -14,13 +14,13 @@ $leker=mysql_query("SELECT kutya_nev, kutya_id, kutya_falka FROM kutya WHERE kut
 if(mysql_num_rows($leker)>0){
 while($kutya=mysql_fetch_object($leker)){
 if($kutya->kutya_id==$_SESSION[id]){
-$_SESSION[hiba]=hiba("Magadat nem tilthatód le!<br>");
+$_SESSION[hiba]=hiba("Magadat nem tilthatod le!<br>");
 header("Location: ../falkabealit.php?page=2");
 }elseif($kutya->kutya_id==$falka->falka_vezetohelyettes){
-$_SESSION[hiba]=hiba("A helyettesed nem tilthatód le!<br>");
+$_SESSION[hiba]=hiba("A helyettesed nem tilthatod le!<br>");
 header("Location: ../falkabealit.php?page=2");
 }elseif($kutya->kutya_id==$falka->falka_vezeto){
-$_SESSION[hiba]=hiba("A fönököd nem tilthatód le!<br>");
+$_SESSION[hiba]=hiba("A fönököd nem tilthatod le!<br>");
 header("Location: ../falkabealit.php?page=2");
 }else{
 $leker1=mysql_query("SELECT * FROM falkatilto WHERE falkatilto_falka = '". $falka->falka_id ."' and falkatilto_kutya = '". $kutya->kutya_id ."'");

@@ -158,7 +158,7 @@ if(substr_count($leker->kutya_tanul,"BR")==0){ $tanul.="<option value=BR>Lottózn
 if(substr_count($leker->kutya_tanul,"ER")==0){ $tanul.="<option value=ER>Érettségizni (";$tudas=mysql_query("SELECT * FROM `tanul` WHERE `tanul_id` = '". $leker->kutya_id ."' and `tanul_mit` = 'ER'",$kapcsolat);$lecke=0;while ($row = mysql_fetch_object($tudas)) { $lecke=12-$row->tanul_lecke; } $tanul.=$lecke. "/12)</option>"; }
 if(substr_count($leker->kutya_tanul,"FU")==0){ $tanul.="<option value=FU>Fül befogása (";$tudas=mysql_query("SELECT * FROM `tanul` WHERE `tanul_id` = '". $leker->kutya_id ."' and `tanul_mit` = 'FU'",$kapcsolat);$lecke=0;while ($row = mysql_fetch_object($tudas)) { $lecke=7-$row->tanul_lecke; } $tanul.=$lecke. "/7)</option>"; }
 if(substr_count($leker->kutya_tanul,"KE")==0){ $tanul.="<option value=KE>Kereskedés (";$tudas=mysql_query("SELECT * FROM `tanul` WHERE `tanul_id` = '". $leker->kutya_id ."' and `tanul_mit` = 'KE'",$kapcsolat);$lecke=0;while ($row = mysql_fetch_object($tudas)) { $lecke=10-$row->tanul_lecke; } $tanul.=$lecke. "/10)</option>"; }
-if(substr_count($leker->kutya_tanul,"VE")==0){ $tanul.="<option value=VE>Kvízelés(";$tudas=mysql_query("SELECT * FROM `tanul` WHERE `tanul_id` = '". $leker->kutya_id ."' and `tanul_mit` = 'VE'",$kapcsolat);$lecke=0;while ($row = mysql_fetch_object($tudas)) { $lecke=12-$row->tanul_lecke; } $tanul.=$lecke. "/12)</option>"; }
+if(substr_count($leker->kutya_tanul,"VE")==0){ $tanul.="<option value=VE>Kvíz(";$tudas=mysql_query("SELECT * FROM `tanul` WHERE `tanul_id` = '". $leker->kutya_id ."' and `tanul_mit` = 'VE'",$kapcsolat);$lecke=0;while ($row = mysql_fetch_object($tudas)) { $lecke=12-$row->tanul_lecke; } $tanul.=$lecke. "/12)</option>"; }
 $tanul.="</select><br><input type=submit name=elkuld value=Tanítás></form></center>";
 }
 $tanul.="<br>Picit fel szeretnéd gyorsítani dolgot? 50 ossáért puskázd ki és rögtön megtanulja a kutyád.<center><form method=POST action=inc/puska.php><select name=puska>";
@@ -168,7 +168,7 @@ if(substr_count($leker->kutya_tanul,"BR")==0){ $tanul.="<option value=BR>Lottózn
 if(substr_count($leker->kutya_tanul,"ER")==0){ $tanul.="<option value=ER>Érettségizni</option>"; }
 if(substr_count($leker->kutya_tanul,"FU")==0){ $tanul.="<option value=FU>Fül befogása</option>"; }
 if(substr_count($leker->kutya_tanul,"KE")==0){ $tanul.="<option value=KE>Kereskedés</option>"; }
-if(substr_count($leker->kutya_tanul,"VE")==0){ $tanul.="<option value=VE>Kvízelés</option>"; }
+if(substr_count($leker->kutya_tanul,"VE")==0){ $tanul.="<option value=VE>Kvíz</option>"; }
 $tanul.="</select><input type=submit name=elkuld value=Puskázz></form></center>";
 }
 
@@ -179,15 +179,30 @@ $lotto.="<a href=lotto.php class='feherlink'>Lottó</a><br>";
 }
 if(substr_count($leker->kutya_tanul,"VE")==0){
 }else{
-$lotto.="<a href=autoverseny.php class='feherlink'>Kvízelés</a><br>";
+$lotto.="<a href=autoverseny.php class='feherlink'>Kvíz</a><br>";
 }
 if($lotto==""){
 $lotto="Sajnos te még semmi játékkkal nem tudsz játszani. De ne buslakodj, inkább tanulj meg egy-kettõt és játsz!";
 }
 $menu="<table border=0 cellpadding=5 cellspacing=0>
-<tr><td><img src=pic/tanul.png></td><td bgcolor=#e6ba8e><img src=pic/". $sziv ."hazassag.png></td><td><img src=pic/". $lehet ."fagyaszt.png></td><td bgcolor=#e6ba8e><img src=pic/egyszam.png></td><td><img src=pic/lotto.png></td></tr>
-<tr><td align=center><i>Tanulás</i></td><td align=center bgcolor=#e6ba8e><i>Házasság</i></td><td align=center><i>Fagyasztás</i></td><td align=center bgcolor=#e6ba8e><i>Egyszám játék</i></td><td align=center><i>Játékok</i></td></tr>
-<tr VALIGN=TOP><td width=150 style='text-align:justify;'>". $tanul ."</td><td width=150 style='text-align:justify;' bgcolor=#e6ba8e>". $hazas ."</td><td width=150 style='text-align:justify;' id='fagyaszt'>". $fagyasztas ."</td><td bgcolor=#e6ba8e width=150 style='text-align:justify;' id='egyszamjatek'>". $egyszam ."</td><td width=150 style='text-align:justify;'><center>". $lotto ."</center></td></tr></Table>";
+<tr>
+	<td><img src=pic/tanul.png></td>
+	<td background=pic/hatter8.gif><img src=pic/". $sziv ."hazassag.png></td>
+	<td><img src=pic/". $lehet ."fagyaszt.png></td>
+	<td background=pic/hatter8.gif><img src=pic/egyszam.png></td>
+	<td><img src=pic/lotto.png></td></tr>
+<tr>
+	<td align=center><i>Tanulás</i></td>
+	<td align=center background=pic/hatter8.gif><i>Házasság</i></td>
+	<td align=center><i>Fagyasztás</i></td>
+	<td align=center background=pic/hatter8.gif><i>Egyszám játék</i></td>
+	<td align=center><i>Játékok</i></td></tr>
+<tr VALIGN=TOP>
+	<td width=150 style='text-align:justify;'>". $tanul ."</td>
+	<td width=150 style='text-align:justify;' background=pic/hatter8.gif>". $hazas ."</td>
+	<td width=150 style='text-align:justify;' id='fagyaszt'>". $fagyasztas ."</td>
+	<td background=pic/hatter8.gif width=150 style='text-align:justify;' id='egyszamjatek'>". $egyszam ."</td>
+	<td width=150 style='text-align:justify;'><center>". $lotto ."</center></td></tr></Table>";
 }
 $adat="<style>
 .black_overlay{

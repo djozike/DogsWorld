@@ -5,7 +5,11 @@ include("inc/oop.php");
 if(isset($_SESSION[id])){
 $en=new kutya();
 $en->GetKutyaByID($_SESSION[id]);
-$menu="<a href=ujbejegyzes.php><img src=pic/ujblog.jpg></a><br><a href=blog.php class='feherlink'>Friss blogok</a> | <a href=blog.php?id=". $_SESSION[id] ." class='feherlink'>Saját blogom</a> | <a href=blog.php?baratok=". $_SESSION[id] ." class='feherlink'>Barátaim blogjai</a> | <a href=blog.php?kommentek=". $_SESSION[id] ." class='feherlink'>Kommentjeim</a><br>";
+if(( ($BLOGIRASTANULAS==1 and $en->Tanult("IR")) or $BLOGIRASTANULAS==0) and (($BLOGIRASMINNAP!=0 and $BLOGIRASMINNAP <= $en->kor) or $BLOGIRASMINNAP==0))
+{
+$ujblog="<a href=ujbejegyzes.php><img src=pic/ujblog.jpg></a>";
+}
+$menu=$ujblog ."<br><a href=blog.php class='feherlink'>Friss blogok</a> | <a href=blog.php?id=". $_SESSION[id] ." class='feherlink'>Saját blogom</a> | <a href=blog.php?baratok=". $_SESSION[id] ." class='feherlink'>Barátaim blogjai</a> | <a href=blog.php?kommentek=". $_SESSION[id] ." class='feherlink'>Kommentjeim</a><br>";
 
 if(isset($_GET[id])){
 $kutyus=new kutya();
@@ -102,8 +106,24 @@ $adat.="<tr bgcolor=#ffffff><td align=left colspan=3 class='forum'><div style='w
 </td></tr><tr><td background=pic/hatter8.gif colspan=3 height=2></td></tr>
 
 <tr bgcolor=#ffffff><td colspan=3 align=center>";
-$adat.='<a href=javascript:viewMore("two"); class="barna">Új komment írása:</a><form action=inc/komment.php method=POST><p id="two" style="display:none">';
-$adat.="<input type=hidden name=blog value=". $blog->blog_id ."><textarea name=komment cols=50></textarea><br><input type=submit value=Elküld></p></form></td></tr><tr bgcolor=#ffffff><td colspan=3 align=center><a id=kommentek>Kommentek:</a>";
+if(( ($BLOGIRASTANULAS==1 and $en->Tanult("IR")) or $BLOGIRASTANULAS==0) and (($BLOGIRASMINNAP!=0 and $BLOGIRASMINNAP <= $en->kor) or $BLOGIRASMINNAP==0))
+{
+$ujkomi="<input type=hidden name=blog value=". $blog->blog_id ."><textarea name=komment cols=50></textarea><br><input type=submit value=Elküld>";
+}
+else{
+	$ujkomi=hiba("Nem irhatsz új kommentet, mivel");
+	if($BLOGIRASTANULAS==1 and !$en->Tanult("IR"))
+	{
+		$ujkomi.=hiba(" nem tanultál meg írni");
+	}
+	if(($BLOGIRASMINNAP!=0 and $BLOGIRASMINNAP > $en->kor))
+	{
+		$ujkomi.=hiba(" fiatalabb vagy mint ". $BLOGIRASMINNAP ." nap");
+	}
+	$ujkomi.=hiba(".");
+}
+$adat.="<a href=javascript:viewMore(\"two\"); class=\"barna\">Új komment írása:</a><form action=inc/komment.php method=POST><p id=\"two\" style=\"display:none\">". $ujkomi ."</p></form></td></tr><tr bgcolor=#ffffff><td colspan=3 align=center><a id=kommentek>Kommentek:</a>";
+
 $kommentek=mysql_query("SELECT * FROM komment WHERE komment_blog = '". $blog->blog_id ."' ORDER BY komment_id DESC");
 if(mysql_num_rows($kommentek)>0){
 while($komment=mysql_fetch_object($kommentek)){
@@ -115,13 +135,13 @@ $kep="<img src=pic/user/avatar.jpg border=0 width=100 height=100>";
 if($blog->blog_kutya==$_SESSION[id] or $en->rang > 0){
 $torol="<a href=inc/ktorol.php?id=". $komment->komment_id ." class='feherlink'>Törlés</a>";
 }
-$adat.="<table border=0 width=750 CELLSPACING=0 CELLPADDING=0><tr bgcolor=#e6ba8e><td align=left class='forum' colspan=2>
+$adat.="<table border=0 width=750 CELLSPACING=0 CELLPADDING=0><tr background=pic/hatter8.gif><td align=left class='forum' colspan=2>
 <table border=0 width=750 CELLSPACING=0 CELLPADDING=0><tr><td align=left><a href=kutyak.php?id=". $komment->komment_kid ." class='feherlink'>". $komment->komment_nev ."</a></td><td align=right>". $torol ." ". str_replace("-",".",$komment->komment_ido) ."</td></tr></table>
 </td></tr>
-<tr><td bgcolor=#e6ba8e align=center height=105 valign=top width=110><center>". $kep ." </center></td><td align=left valign=top width=640 class='forum'><div style='width: 640px; overflow-x: auto;'>". nl2br($komment->komment_komment) ."</td></tr></table><br>";
+<tr><td background=pic/hatter8.gif align=center height=105 valign=top width=110><center>". $kep ." </center></td><td align=left valign=top width=640 class='forum'><div style='width: 640px; overflow-x: auto;'>". nl2br($komment->komment_komment) ."</td></tr></table><br>";
 }
 }else{
-$adat.=hiba("<br>Nincsennek még kommentek!");
+$adat.=hiba("<br>Nincsenek még kommentek!");
 }
 $adat.="</td></tr><tr><td width=11 height=11 background=pic/balalso3.jpg></td><td bgcolor=#ffffff></td><td width=11 height=11 background=pic/jobbalso3.jpg></td></tr>
 </td></tr></table>";
@@ -136,21 +156,21 @@ $adat=hiba("<center><br><br><br><br>Nincs ilyen blog!</center>");
  if(isset($_GET[kommentek]))
  {
  $sql=mysql_query("SELECT DISTINCT * FROM komment INNER JOIN blog ON komment.komment_blog = blog.blog_id WHERE komment.komment_kid = '". $_SESSION[id] ."' GROUP BY komment.komment_blog ORDER BY komment.komment_id DESC limit 25");
- $hibacs="<big>". ok("Nincsennek még kommentjeid.") . "</big>";
+ $hibacs="<big>". ok("Nincsenek még kommentjeid.") . "</big>";
  $title="Legutóbbi Kommentjeim";
  $title2="Legutóbbi Kommentjeim";
  }
  elseif(isset($_GET[baratok]))
  {
   $sql=mysql_query("select * from blog inner join kutya on blog.blog_kutya = kutya.kutya_id where blog_kutya in (select baratlista_barat from baratlista where baratlista_owner = '". $_SESSION[id] ."') order by blog_id desc limit 10");
-  $hibacs=hiba("<br>Nincsennek még barátaid vagy a barátaidnak blogbejegyzéseik!");
+  $hibacs=hiba("<br>Nincsenek még barátaid vagy a barátaidnak blogbejegyzéseik!");
   $title="Barátaim blogjai";
   $title2="Barátaim legutóbbi blog bejegyzései";
  }
  else
  {
   $sql=mysql_query("SELECT * FROM blog INNER JOIN kutya ON blog.blog_kutya = kutya.kutya_id ORDER BY blog_id DESC limit 10");
-  $hibacs=hiba("<br>Nincsennek még blogbejegyzések az oldalon!");
+  $hibacs=hiba("<br>Nincsenek még blogbejegyzések az oldalon!");
   $title="Blog";
   $title2="Legfrissebb blog bejegyzések";
  }

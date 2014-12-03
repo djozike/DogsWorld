@@ -30,6 +30,26 @@ $EGYSZAMNYEREMENY[2]=100;
 ///fagyasztas
 $FAGYASZTMINAP=5;
 $FAGYASZTIDO=20;
+///blog es komment iras
+if(file_exists("../data/blogiras.txt"))
+{
+$blogirasAdatok = fopen("../data/blogiras.txt", "r");
+$blogIras=explode("|", fread($blogirasAdatok, filesize("../data/blogiras.txt")));
+fclose($blogirasAdatok);
+}
+elseif(file_exists("./data/blogiras.txt"))
+{
+$blogirasAdatok = fopen("./data/blogiras.txt", "r");
+$blogIras=explode("|", fread($blogirasAdatok, filesize("./data/blogiras.txt")));
+fclose($blogirasAdatok);
+}
+else{
+$blogIras[0]=5;
+$blogIras[1]=1;
+}
+
+$BLOGIRASMINNAP=$blogIras[0];
+$BLOGIRASTANULAS=$blogIras[1];
 ///HIBAUZENETEK
 ///levelezes
 $NINCSLEVEL=hiba("<font size=+2>Nincsennek betölthetõ üzenetek!</font>");

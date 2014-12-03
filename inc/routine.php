@@ -91,6 +91,6 @@ $i++;
 }
 
 mysql_query("DELETE FROM kvizeredmeny");
-			
+mysql_query("DELETE FROM kviztipp");
 }
 ?>

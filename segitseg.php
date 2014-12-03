@@ -58,8 +58,8 @@ $adat="<center><big><big>Szabályzat</big></big></center><br><br>
 6. Tilos az oldal hibásan mûködõ elemeibõl adódó elõnyszerzés.<br>
 7. A fórumon a megfelelõ téma használata kötelezõ (falkahirdetések a falka témába, hirdetések a piacra, minden más segítség vagy társalgó).<br>
 8. A moderátorok választása az adminisztrátor feladata. A választás felkéréses alapon mûködik, ezért tilos többszöri kéregetés a moderátor jogért.<br>
-9. Kutyád eladni csak a piacon szabad, a piacon árult kutyát csak az üzenõfalon vagy a fórum megfelelõ témájában lehet (Blogban, adatlapon nem).<br>
-10. A különbözõ holnap, falka és egyéb hirdetéseket csak az üzenõfalon vagy a fórum megfelelõ témájában lehet elhelyezni (Blogban, adatlapon nem). <br>
+9. Kutyád eladni csak a piacon szabad, a piacon árult kutyát csak az üzenõfalon vagy a fórum megfelelõ témájában lehet hirdetni (Blogban, adatlapon nem).<br>
+10. A különbözõ honlap, falka és egyéb hirdetéseket csak az üzenõfalon vagy a fórum megfelelõ témájában lehet elhelyezni (Blogban, adatlapon nem). <br>
 11. Tilos bármely hatályba lépett magyarországi törvény megszegése.<br>
 12. A szabályok megszegésért a moderátorok törölhetik az üzeneted, blog bejegyzésed, adatlapod, falkád.<br>
 13. A moderátoroknak kötelességük egyszer figyelmeztetni a törlés elõtt.</center>";
@@ -71,15 +71,15 @@ $adat="<center><big><big>Oldal</big></big></center><br><center><table border=0>
 </table></center>
 <br><center><big><big><a id=kodok>Az oldalon használható kódok</a></big></big></center>
 [b]<b>Félkövér betû</b>[/b]<br>
- [u]<u>Aláhuzott betû</u>[/u]<br>
- [i]<i>Dölt betû</i>[/i]<br>
- [center]Középre igazitás[/center]<br>
+ [u]<u>Aláhúzott betû</u>[/u]<br>
+ [i]<i>Dõlt betû</i>[/i]<br>
+ [center]Középre igazítás[/center]<br>
  [right]Jobbra igazítás[/right]<br>
- [img]beszúrni kivánt kép url-je[/img]<br>
+ [img]Beszúrni kívánt kép url-je[/img]<br>
  [link= url]Link szövege[/link]<br>
  [youtube]A videó url-je [/youtube]<br>
- [color=szinkód]szinezni kivánt szöveg[/color]<br>
- [nev]adott nevu kutyanak a neve szinezve, linkelve[/nev]</center>
+ [color=szinkód]Szinezni kívánt szöveg[/color]<br>
+ [nev]Adott nevû kutyának a neve színezve, linkelve[/nev]</center>
  
  <br><br><center><big><big><a id=egszsuly>A kutya egészségének és súlyának változása</a></big></big></center>
 <br><center>
@@ -100,8 +100,8 @@ $adat.='<tr><td>'.  $fajta->fajta_nev .'</td><td>'. $fajta->fajta_gen .'</td></t
 }
 ///admin. moderator
 $adat.="</table>
-<br><br><center><big><big><a id=adminmod>Adminok, moderátorok</a></big></big></center> Az oldalon ténykednek olyanok is, akik feladat az oldal megfelelõ használatának ellenõrzése, szabályok betartatása, ezen személyeket moderátoroknak nevezzük. Ezen feladatok ellátásához joguk van látni melyik kutya melyik IP címrõl lépett be, ki melyik kutyát árulja, stb. Ezen kutyák koordinátorai, vezetõi a fõmoderátorok. Õk hasonló jogkörrel rendelkeznek mint a moderátorok, de kiegészül azzal, hogy a felhasználóknál lévõ pénzt is látják. 
-Ezen szintek felett áll az adminisztrátor, amelyek feladata az oldal fejlesztése, hibák javítása, újítások bevezetése. Hogy a felhasználók könnyebben tudják azonosítani az adminisztárokat, moderátorokat a nevük mellett különbözõ csillag jelzi a rangjukat:
+<br><br><center><big><big><a id=adminmod>Adminok, moderátorok</a></big></big></center> Az oldalon ténykednek olyanok is, akik feladata az oldal megfelelõ használatának ellenõrzése, szabályok betartatása, ezen személyeket moderátoroknak nevezzük. Ezen feladatok ellátásához joguk van látni melyik kutya melyik IP címrõl lépett be, ki melyik kutyát árulja, stb. Ezen kutyák koordinátorai, vezetõi a fõmoderátorok. Õk hasonló jogkörrel rendelkeznek mint a moderátorok, de kiegészül azzal, hogy a felhasználóknál lévõ pénzt is látják. 
+Ezen szintek felett áll az adminisztrátor, amelyek feladata az oldal fejlesztése, hibák javítása, újítások bevezetése. Hogy a felhasználók könnyebben tudják azonosítani az adminisztrátorokat, moderátorokat a nevük mellett különbözõ csillag jelzi a rangjukat:
 <table><tr><td><img src=pic/mod1.gif></td><td>Moderátor</td></tr>
 <tr><td><img src=pic/mod2.gif></td><td>Fõmoderátor</td></tr>
 <tr><td><img src=pic/mod3.gif></td><td>Adminisztrátor</td></tr></table>Illetve a jelenlegi adminisztrátorok, moderátorok listája:<table>";
@@ -117,8 +117,8 @@ Ezen szintek felett áll az adminisztrátor, amelyek feladata az oldal fejlesztése
 $adat.=$ModLista;
 
 //legjobbgazda, egyszam	
-$adat.="<br><center><big><big><a id=legjobbgazda>Legjobbgazda cím</a></big></big></center>A Legjobbgazda cím elnyeréséhez ". $LEGJOBBGAZDANAP ." napig kell látogatnód a kutyád. Ha ezt elérted a napok száma automatikussan kinullázodik minden kutyánál amihez a te IP címedrõl léptek be, és a te kutyád megkapja a nyereményét.
-<br><br><center><big><big><a id=egyszam>Egyszám játék</a></big></big></center>Az egyszám játék egy \"kitalálós\" játék. Csak akkor játszhatód, ha a kutyád már megtanult számolni. A játék célja, hogy minden nap, minnél kevesebb tippbõl kitalálj egy 1 és 75 közötti számot. Az alapján, hogy hány tippbõl találtad ki a táblázatnak megfelelõ pontot kapsz:
+$adat.="<br><center><big><big><a id=legjobbgazda>Legjobbgazda cím</a></big></big></center>A Legjobbgazda cím elnyeréséhez ". $LEGJOBBGAZDANAP ." napig kell látogatnod a kutyád. Ha ezt elérted a napok száma automatikusan lenullázódik minden kutyánál amihez a te IP címedrõl léptek be, és a te kutyád megkapja a nyereményét.
+<br><br><center><big><big><a id=egyszam>Egyszám játék</a></big></big></center>Az egyszám játék egy \"kitalálós\" játék. Csak akkor játszhatod, ha a kutyád már megtanult számolni. A játék célja, hogy minden nap, minél kevesebb tippbõl kitalálj egy 1 és 75 közötti számot. Az alapján, hogy hány tippbõl találtad ki a táblázatnak megfelelõ pontot kapsz:
 <table border=0><tr><th align=center>Tippek</th><th align=center>Pontszám</th></tr>
 <tr><td align=center>1</td><td align=center>25</td></tr>
 <tr><td align=center>2</td><td align=center>18</td></tr>
@@ -130,7 +130,7 @@ $adat.="<br><center><big><big><a id=legjobbgazda>Legjobbgazda cím</a></big></big
 <tr><td align=center>8</td><td align=center>4</td></tr>
 <tr><td align=center>9</td><td align=center>3</td></tr>
 <tr><td align=center>10</td><td align=center>2</td></tr>
-<tr><td align=center>több</td><td align=center>1</td></tr></table>A pontokat egy hétig gyûjtheted (hétfõ-vasárnap), és aszerint, hogy mennyi pontot gyüjtöttél kerülsz rangsorolásara(az aktuális állást láthatód az egyszám statisztika fülõn). A legjobb ". SIZEOF($EGYSZAMNYEREMENY) ." kerül dijjazásra.  Nyeremények: ";
+<tr><td align=center>több</td><td align=center>1</td></tr></table>A pontokat egy hétig gyûjtheted (hétfõ-vasárnap), és aszerint, hogy mennyi pontot gyüjtöttél kerülsz rangsorolásra(az aktuális állást láthatod az egyszám statisztika fülön). A legjobb ". SIZEOF($EGYSZAMNYEREMENY) ." kerül díjazásra.  Nyeremények: ";
 for($i=0; $i<SIZEOF($EGYSZAMNYEREMENY);$i++)
 {
 $adat.=($i+1).". helyezet ". penz($EGYSZAMNYEREMENY[$i]);

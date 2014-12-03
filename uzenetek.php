@@ -17,7 +17,7 @@ if($_GET[page]=="kimeno"){
 $adat=menu();
 $adat.="<center>A villogó levelet, a címzett még nem olvasta el!<br>
 A törlésre kattintva csak az elküldõtt levelek listáról törlõdik a levél, a címzett
-még mindig elolvashatja!<br>". hiba("Figyelem! a ". $LEVELTORLES ." napnál régebbi olvasott levelek automatikussan törlõdnek.") ."</center><br>";
+még mindig elolvashatja!<br>". hiba("Figyelem! a ". $LEVELTORLES ." napnál régebbi olvasott levelek automatikusan törlõdnek.") ."</center><br>";
 $leker=mysql_query("SELECT * FROM uzenetek WHERE uzenet_kuldo = '". $_SESSION[id] ."' and uzenet_torol_kuldo = '0' ORDER BY uzenet_id DESC");
 if(mysql_num_rows($leker)>0){
 $adat.="<center><table><tr><td><td width=200 align=center>Név<td width=200 align=center>Idõ<td align=50></tr>";
@@ -36,7 +36,7 @@ $kapo="<i>Törölt kutya</i>";
 }$kep=2;
 if($uzenet->uzenet_olvas==0){$kep="";}
 
-$adat.="<tr><td><a href=uzenetek.php?id=". $uzenet->uzenet_id  ."><img src=pic/level". $kep .".gif border=0></a><td align=center><a href=uzenetek.php?id=". $uzenet->uzenet_id  ." class='feherlink'>". $kapo ."</a><td>". str_replace("-",".",$uzenet->uzenet_ido) ."<td align=right><a href=inc/torol.php?id=". $uzenet->uzenet_id ."><img src=pic/kuka.jpg border=0></a></tr>";
+$adat.="<tr><td><a href=uzenetek.php?id=". $uzenet->uzenet_id  ."><img src=pic/level". $kep .".gif border=0></a><td align=center><a href=uzenetek.php?id=". $uzenet->uzenet_id  ." class='feherlink'>". $kapo ."</a><td>". str_replace("-",".",$uzenet->uzenet_ido) ."<td align=right><a href=inc/torol.php?id=". $uzenet->uzenet_id ."><img src=pic/kuka.png border=0></a></tr>";
 
 }
 $adat.="</table></center>";
@@ -62,9 +62,9 @@ while($kutya=mysql_fetch_object($lekeres)){
 $lekeres2=mysql_query("SELECT * FROM kutya WHERE kutya_id = '". $kutya->tilto_tiltott ."'");
 while($kutyak=mysql_fetch_object($lekeres2)){
 if($kutyak->kutya_betuszin=="774411"){
-$adat.="<tr><td><li></td><td align=left width=80><a href=kutyak.php?id=". $kutyak->kutya_id ." class='feherlink'>". htmlentities($kutyak->kutya_nev) ."</a></td><td><a href=inc/tiltotorol.php?id=". $kutyak->kutya_id ."><img src=pic/kuka.jpg border=0></a></td></tr>";
+$adat.="<tr><td><li></td><td align=left width=80><a href=kutyak.php?id=". $kutyak->kutya_id ." class='feherlink'>". htmlentities($kutyak->kutya_nev) ."</a></td><td><a href=inc/tiltotorol.php?id=". $kutyak->kutya_id ."><img src=pic/kuka.png border=0></a></td></tr>";
 }else{
-$adat.="<tr><td><li></td><td align=left width=80><a href=kutyak.php?id=". $kutyak->kutya_id ." class='feherlink'><font color=#". $kutyak->kutya_betuszin .">". htmlentities($kutyak->kutya_nev) ."</font></a></td><td><a href=inc/tiltotorol.php?id=". $kutyak->kutya_id ."><img src=pic/kuka.jpg border=0></a></td></tr>";
+$adat.="<tr><td><li></td><td align=left width=80><a href=kutyak.php?id=". $kutyak->kutya_id ." class='feherlink'><font color=#". $kutyak->kutya_betuszin .">". htmlentities($kutyak->kutya_nev) ."</font></a></td><td><a href=inc/tiltotorol.php?id=". $kutyak->kutya_id ."><img src=pic/kuka.png border=0></a></td></tr>";
 }
 }
 }
@@ -150,7 +150,7 @@ $bejelent=htmlentities($bej->kutya_nev);
 }else{
 $bejelent="<font color=#". $bej->kutya_betuszin .">". htmlentities($bej->kutya_nev) ."</font>";
 }
-$adat.="<tr><td><a href=uzenetek.php?id=". $uzi->uzenet_id  ."><img src=pic/level2.gif border=0></a><td align=center><a href=uzenetek.php?id=". $uzi->uzenet_id  ." class='feherlink'>". $kapo ."</a><td align=center><a href=uzenetek.php?id=". $uzi->uzenet_id  ." class='feherlink'>". $bejelent ."</a></td><td>". $uzi->uzenet_ido ."<td align=right><a href=inc/bejtorol.php?id=". $uzi->uzenet_id ."><img src=pic/kuka.jpg border=0></a></tr>";
+$adat.="<tr><td><a href=uzenetek.php?id=". $uzi->uzenet_id  ."><img src=pic/level2.gif border=0></a><td align=center><a href=uzenetek.php?id=". $uzi->uzenet_id  ." class='feherlink'>". $kapo ."</a><td align=center><a href=uzenetek.php?id=". $uzi->uzenet_id  ." class='feherlink'>". $bejelent ."</a></td><td>". $uzi->uzenet_ido ."<td align=right><a href=inc/bejtorol.php?id=". $uzi->uzenet_id ."><img src=pic/kuka.png border=0></a></tr>";
 }
 }
 }
@@ -217,7 +217,7 @@ $_SESSION[hiba]="";
 }else{ header("Location: uzenetek.php");}
 }else{
 $adat=menu();
-$adat.='<center>Ha levelet szeretnél törölni kattints a kukára, a villogó leveleket még nem olvastad!<br> Ha valami szabályzat ellenes tartalmat észlelsz a levélben, kattints a "Szabályzat ellenes levél jelzése" gombra.<br>'. hiba("Figyelem! a ".  $LEVELTORLES  ." napnál régebbi olvasott levelek automatikussan törlõdnek.") .'</center><br>';
+$adat.='<center>Ha levelet szeretnél törölni kattints a kukára, a villogó leveleket még nem olvastad!<br> Ha valami szabályzat ellenes tartalmat észlelsz a levélben, kattints a "Szabályzat ellenes levél jelzése" gombra.<br>'. hiba("Figyelem! a ".  $LEVELTORLES  ." napnál régebbi olvasott levelek automatikusan törlõdnek.") .'</center><br>';
 
 $leker=mysql_query("SELECt * FROM uzenetek WHERE uzenet_kapo = '". $_SESSION[id] ."' and uzenet_torol_kapo = '0' ORDER BY uzenet_id DESC");
 if(mysql_num_rows($leker)>0){
@@ -245,7 +245,7 @@ if($uzenet->uzenet_olvas==0){$kep="level";}
 $kep="mydog";
 $kapo="Dogs World";
 }
-$adat.="<tr><td align=right><input type=checkbox name=". $i ." value=". $uzenet->uzenet_id ." style='width: 10px' id='". $i ."'></td><td><a href=uzenetek.php?id=". $uzenet->uzenet_id  ."><img src=pic/". $kep .".gif border=0></a><td align=center width=270><a href=uzenetek.php?id=". $uzenet->uzenet_id  ." class='feherlink'>". $kapo ."</a><td>". str_replace("-",".",$uzenet->uzenet_ido) ."<td align=right><a href=inc/torol.php?id=". $uzenet->uzenet_id ."><img src=pic/kuka.jpg border=0></a></tr> \n";
+$adat.="<tr><td align=right><input type=checkbox name=". $i ." value=". $uzenet->uzenet_id ." style='width: 10px' id='". $i ."'></td><td><a href=uzenetek.php?id=". $uzenet->uzenet_id  ."><img src=pic/". $kep .".gif border=0></a><td align=center width=270><a href=uzenetek.php?id=". $uzenet->uzenet_id  ." class='feherlink'>". $kapo ."</a><td>". str_replace("-",".",$uzenet->uzenet_ido) ."<td align=right><a href=inc/torol.php?id=". $uzenet->uzenet_id ."><img src=pic/kuka.png border=0></a></tr> \n";
 $i++;
 
 }

@@ -23,7 +23,7 @@ function rangtotext($rang)
     }
 }
 ///menu
-$oldal="<center><big><u>Adminisztrációs felület</u></big><br><br><a href=admin.php class='feherlink'>Általános</a> | <a href=admin.php?p=j class='feherlink'>Játékok</a> |<a href=admin.php?p=t class='feherlink'>Tiltások</a> | <a href=admin.php?p=s class='feherlink'>Statisztika</a><br>". $_SESSION[hiba] ."<br>";
+$oldal="<center><big><u>Adminisztrációs felület</u></big><br><br><a href=admin.php class='feherlink'>Általános</a> | <a href=admin.php?p=j class='feherlink'>Játékok</a> |<a href=admin.php?p=t class='feherlink'>Tiltások</a> | <a href=admin.php?p=s class='feherlink'>Statisztika</a><br>". $_SESSION[hiba] ."<br><script src=\"script/admin.js\"></script>";
 ///ip tiltások
 $tiltottipksql=mysql_query("SELECT * FROM oldaliptilt");
 $tablazat="A jelenleg tiltott IP címek a következõk:<br>";
@@ -88,14 +88,44 @@ $KutyakTablazat="A jelenleg tiltott kutyák a következõk:<br>";
  $ModLista.="</table>";
  ///penzkuldes
  $handle = fopen("data/csont.txt", "r");
- $kuldheto=fread($handle, filesize("data/csont.txt"));
+ $kuldheto=penz(fread($handle, filesize("data/csont.txt")));
+ if($_SESSION[id] == 1)
+ {
+	$kuldheto="VÉGTELEN";
+ }
 fclose($handle);
-$PenztKuld="Pénz küldése esetén, nem tõled vonodik le az összeg, hanem a Nemzeti csont bankból kerül kiutalásra.<br><u>Küldhetõ csont: </u>". penz($kuldheto) ."<br>
-		        <form method=POST action=inc/penztajandekoz.php>Kutya név: <input type=text name=kutya> Pénz: <input type=text name=penz style='width:50px;'> ossa  <input type=submit name=ok value='Elküld' style='width:60px;'> </form>";
+
+$handle = fopen("data/csontkuldes.txt", "r");
+$penzkuldesek=explode("\n", fread($handle, filesize("data/csontkuldes.txt")));
+$penzkuldesekformazva="<table>";
+for($i=0; $i<sizeof($penzkuldesek); $i++)
+{
+$ido=explode("Küldõ: ", str_replace("Idõ: ", "", $penzkuldesek[$i]));
+$kuldo=explode("Kapó: ", $ido[1]);
+$kapo=explode("Összeg: ", $kuldo[1]);
+$penzkuldesekformazva.="<tr><td>". $ido[0] ."</td><td>". $kuldo[0] ."</td><td>". $kapo[0] ."</td><td>". $kapo[1] ."</td></tr>";
+}
+$penzkuldesekformazva.="</table>";
+fclose($handle);
+$PenztKuld="Pénz küldése esetén, nem tõled vonodik le az összeg, hanem a Nemzeti csont bankból kerül kiutalásra.<br><u>Küldhetõ csont: </u>". $kuldheto ."<br>
+		        Kutya név: <input type=text name=kutya id=kutya> Pénz: <input type=text name=penz style='width:50px;' id=penz> ossa  <input type=submit name=ok value='Elküld' style='width:60px;' onclick=\"penzKuldes()\">
+				<div id=\"penzKuldesUzenet\"></div><div id=\"penzKuldesekSzoveg\" onclick=\"penzKuldesekMutat()\">Eddigi pénzküldések megmutatása</div><div id=\"penzKuldesek\" style='height: 200px; overflow-y: auto; display:none'>". $penzkuldesekformazva ."</div>";
 ///rangbeallitas
 $RangBeallit="Itt beállíthatod, hogy az adótt kutya felhasználó, moderátor, fõmoderátor, vagy adminisztrátor legyen.<br>
 		        <form method=POST action=inc/rangvalt.php>Kutya név: <input type=text name=kutya> Rang: <select name=rang><option value=0>Felhasználó</option><option value=1>Moderátor</option><option value=2>Fõmoderátor</option><option value=3>Adminisztrátor</option></select>  <input type=submit name=ok value='Elküld' style='width:60px;'> </form>";
-
+///blog iras beallitasok
+if($BLOGIRASTANULAS==1)
+{
+	$checked="checked";
+}
+else
+{
+	$checked="";
+}
+$BlogIras="Új blog bejegyzés és kommentelés feltételeit állthatód itt be.
+		        <br>Minimális kor (0 esetén nincs minimális): <input type=text name=blognapok id=blognapok value=". $BLOGIRASMINNAP ."><br><input type=checkbox name=iraslecke id=iraslecke style='width:10px;' ". $checked .">Új bejegyzés/kommenteléshez tudni kell irni<br><input type=submit name=ok value='Mentés' style='width:60px;' onclick=\"blogbeallitas()\">";
+				
+				
 ///csont statisztikak
 $CsontStat="<table border=0>";
 $penz=mysql_query("SELECT sum(kutya_penz) osszpenz FROM `kutya`");
@@ -210,8 +240,6 @@ $lotto.="<table>
 <tr><td align=center rowspan=2><form method=POST action=admin.php?p=j><input type=submit value=\"Új Nyerõszámok Generálása\" name=lottonyero style='width: 250px;'></form></tr>
 </table>";
 
-
-
  if($_GET[p]=='t'){
 $oldal.="<u>IP tiltása az oldalról</u>
     ". VilagosMenu(500, "<Table border=0><tr><td align=center><form method=POST action=inc/oldaliptilt.php>IP cím: <input type=text name=ip></td></tr><tr><td align=center>Megjegyzés:<br><textarea name='megjegyzes' cols=26 rows=5></textarea></td></tr> <tr><td align=center><input type=submit name=ok value='Elküld' style='width:60px;'></form></td></tr></table>") ." 
@@ -248,9 +276,11 @@ $oldal.="<u>IP tiltása az oldalról</u>
 
 }else if($_GET[p]=='j')
 {
-$oldal.="<u>Lottó</u>
-   ". VilagosMenu(500, $lotto) ."
-    <br><br>";
+	if($kutyuli->rang>2){ 
+		$oldal.="<u>Lottó</u>
+				". VilagosMenu(500, $lotto) ."
+				<br><br>";
+	}
 }
 else{    
     $oldal.="<u>Monderátorok listája</u>
@@ -260,6 +290,10 @@ else{
     if($kutyuli->rang>2){ 
     $oldal.="<u>Pénz küldése</u>
     ". VilagosMenu(500, $PenztKuld) ."
+   <br><br>
+   
+   <u>Blog bejegyzések és kommentek</u>
+    ". VilagosMenu(500, $BlogIras) ."
    <br><br>
    
     <u>Rang beállítása</u>
