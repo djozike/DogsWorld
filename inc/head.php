@@ -1,8 +1,12 @@
 <?
 $datum=getdate();
-if(($datum["mon"]==12) or ($datum["mon"]==1 and $datum["mday"]<7)){
+if(($datum["mon"]==12 and $datum["mday"] > 10) or ($datum["mon"]==1 and $datum["mday"]<7)){
 $style='<link href="style_karacsony.css" rel="stylesheet" type="text/css">';
-}else{
+}
+else if(($datum["mon"]==12 and $datum["mday"] <= 10)){
+$style='<link href="style_mikulas.css" rel="stylesheet" type="text/css">';
+}
+else{
 $style='<link href="style.css" rel="stylesheet" type="text/css">';
 }
 ?>
