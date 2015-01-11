@@ -317,7 +317,7 @@ $moderator.="<tr><td align=left>Regisztráció IP:</td><td align=right><a href=kut
 }
 //majd anya-apa vizsgalat
 $adat.=$moderator ."<tr><td align=left>Egészség:</td><td align=right><table><tr><td align=left width=180>". $szazalekok ."</td><td width=60 align=right>". $users->kutya_egeszseg ." %</td></tr></table></td></tr><tr><td align=left>Súly:</td><td align=right><table border=0><tr><td align=left  width=180>". $szazalekok2 ."</td><td width=60 align=right>". $users->kutya_suly ." %</td></tr></table></td></tr></table><center>".  $latogat ."<br>
-</center><table border=0><tr><td><a href=uzenetek.php?page=uzenetir&uid=". $users->kutya_id ."><img src=pic/levelneki.jpg border=0></a></td><td><a href=uzenetek.php?page=penztkuld&uid=". $users->kutya_id ."><img src=pic/penzneki.jpg border=0></a></td><td>". $adatlap ."</td><td>". $blog ."</td><td><a href='inc/barat.php?nev=". $users->kutya_nev ."'><img src=pic/haver.jpg border=0></a></td></tr></table></td><td align=right><img src=pic/kutyak/". kutyaszamtofile($users->kutya_fajta) . $users->kutya_szin .".png></td></tr></table>". $falka ."<br>";
+</center><table border=0><tr><td><a href=uzenetek.php?page=uzenetir&uid=". $users->kutya_id ."><img src=pic/levelneki.jpg border=0></a></td><td><a href=uzenetek.php?page=penztkuld&uid=". $users->kutya_id ."><img src=pic/penzneki.jpg border=0></a></td><td>". $adatlap ."</td><td>". $blog ."</td><td><a href='inc/barat.php?nev=". $users->kutya_nev ."'><img src=pic/haver.jpg border=0></a></td></tr></table></td><td align=left>". $kuty->kep() ."</td></tr></table>". $falka ."<br>";
 $i++;
 
 }

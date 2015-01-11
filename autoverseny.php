@@ -32,7 +32,7 @@ while($pontok=mysql_fetch_object($pontlista))
 {
 $kuty=new kutya();
 $kuty->GetKutyaByID($pontok->kvizeredmeny_kutyaid);
-$adat.="<tr><th>". $i."</th><th align=center width=150>". $kuty->NevMegjelenitRanggal() ."</th><th align=right width=150>". $pontok->kvizeredmeny_pont ." pont</th></tr>";
+$adat.="<tr><th>". $i."</th><th align=center width=150>". $kuty->NevMegjelenitRanggalLinkelve() ."</th><th align=right width=150>". $pontok->kvizeredmeny_pont ." pont</th></tr>";
 $i++;
 }
 

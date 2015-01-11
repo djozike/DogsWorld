@@ -50,6 +50,8 @@ AjaxAdatKuld("inc/ajax.php?blognap="+document.getElementById("blognapok").value+
 function penzKuldes(){
 AjaxAdatKuld("inc/ajax.php?kutya="+document.getElementById("kutya").value.replace(" ","SPACE")+"&penz="+document.getElementById("penz").value, function(){ 
 document.getElementById("penzKuldesUzenet").innerHTML=arguments[0];
+document.getElementById("kutya").value="";
+document.getElementById("penz").value="";
 });
 
 }

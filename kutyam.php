@@ -24,7 +24,7 @@ $_SESSION[id]=$kutyus->id;
 
 $kep="<table>
 <tr><td align=center>". $kutyus->NevMegjelenit() ." ". $kutyus->kor ." napja született!</td></tr>
-<tr><td align=center><img src=pic/kutyak/". kutyaszamtofile($kutyus->fajta) . $kutyus->szin .".png></td></tr>
+<tr><td align=center>". $kutyus->Kep() ."</td></tr>
 </table>";
 
 $vonalak="<table><tr><th align=left>Egészség: </th><th align=right>". $kutyus->egeszseg ."%</th></tr><tr><td colspan=2>". $kutyus->EgeszsegCsik($kutyus->egeszseg*3) ."</td></tr><tr><th align=left>Súly: </th><th align=right>". $kutyus->suly ."%</th></tr><tr><td colspan=2>". $kutyus->SulyCsik($kutyus->suly*3) ."</td></tr></table>";

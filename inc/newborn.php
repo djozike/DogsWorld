@@ -30,37 +30,13 @@ while($anya=mysql_fetch_object($anyja)){
 $nem=$kolyok->kolyok_nem;
 $apagen=explode("|", $apa->kutya_gen);
 $anyagen=explode("|", $anya->kutya_gen);
-$rand1=rand(0,7);    
-$rand2=rand(0,7);  
-$rand3=rand(0,7);  
-$rand4=rand(0,7); 
 
-while($rand2==$rand1){
-$rand2=rand(0,7);
-}
-while($rand3==$rand1 || $rand3==$rand2){
-$rand3=rand(0,7);
-}
-while($rand4==$rand1 || $rand4==$rand2 || $rand4==$rand3){
-$rand4=rand(0,7);
-}
-$gen=$apagen[$rand1] ."|". $apagen[$rand2] ."|". $apagen[$rand3] ."|".  $apagen[$rand4] ."|";
+$rand_gen = veletlen(0,7, 4);   
+$gen=$apagen[$rand_gen[0]] ."|". $apagen[$rand_gen[1]] ."|". $apagen[$rand_gen[2]] ."|".  $apagen[$rand_gen[3]] ."|";
 
-$rand1=rand(0,7);    
-$rand2=rand(0,7);  
-$rand3=rand(0,7);  
-$rand4=rand(0,7); 
+$rand_gen = veletlen(0,7, 4); 
+$gen.=$anyagen[$rand_gen[0]] ."|". $anyagen[$rand_gen[1]] ."|". $anyagen[$rand_gen[2]] ."|".  $anyagen[$rand_gen[3]];
 
-while($rand2==$rand1){
-$rand2=rand(0,7);
-}
-while($rand3==$rand1 || $rand3==$rand2){
-$rand3=rand(0,7);
-}
-while($rand4==$rand1 || $rand4==$rand2 || $rand4==$rand3){
-$rand4=rand(0,7);
-}
-$gen.=$anyagen[$rand1] ."|". $anyagen[$rand2] ."|". $anyagen[$rand3] ."|".  $anyagen[$rand4];
 $genek=explode("|", $gen);
 $farkas=true;
 for($i=0; $i<7; $i++)
@@ -69,7 +45,7 @@ for($i=0; $i<7; $i++)
    {
     if($genek[$i]==$genek[$j])
     {
-    $farkas=false;
+		$farkas=false;
     }
    }
 }
@@ -78,12 +54,18 @@ $faj=-2;
 }else{
 $faj=kutyagentoszam($genek[rand(0,7)]);
 }
-$szin=rand(1,kutyaszamtoszinszam($faj));
+//szin meghatarozas
+$genszum= 0;
+for($i=0; $i<8; $i++)
+{
+	$genszum += kutyagentoszam($genek[$i]);
+}
+$szin=($genszum % (kutyaszamtoszinszam($faj)))+1;
 if($_SESSION[id]==$kolyok->kolyok_apa)
 {
-$mail=$apa->kutya_email;
+	$mail=$apa->kutya_email;
 }else{
-$mail=$anya->kutya_email;
+	$mail=$anya->kutya_email;
 }
 if(mysql_query("DELETE FROM kolyok WHERE kolyok_apa = ". $kolyok->kolyok_apa ." and kolyok_anya = ". $kolyok->kolyok_anya ."")){
 mysql_query("INSERT INTO `kutya` VALUES ('', '". $_POST['nev'] ."', '". $_POST['jelszo'] ."', '". $faj ."','". $gen ."','". $szin ."','774411' , '". $nem ."', '". $mail ."', 1, 0, 50, 20, 0, 0,'', ". $apa->kutya_id .",'". $apa->kutya_nev ."',". $anya->kutya_id .",'". $anya->kutya_nev ."',0,0,'". $ip ."','','". $ma ."','',0,0,0,0,0,2,0)",$kapcsolat);
