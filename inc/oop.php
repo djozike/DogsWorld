@@ -214,7 +214,28 @@ include_once("functions.php");
     }
     function Kep()
     {
-      return "<img src=pic/kutyak/". kutyaszamtofile($this->fajta) . $this->szin .".png>";
+		$kepesFajtak = array(22, 8, 26, 27,0,5,-2);
+		if(in_array($this->fajta, $kepesFajtak))
+		{
+			if($this->fajta == 0 || $this->fajta == 5 || $this->fajta == -2)
+			{
+			return "<div style=\"position: relative; left: 0; top: 0;\">
+					<img src=pic/kutyak/". kutyaszamtofile($this->fajta) . $this->szin .".png style=\"position: relative; top: 0; left: 0;\">
+					<img src=pic/targyak/". kutyaszamtofile($this->fajta) ."Mikulas.png style=\"position: absolute; top: -10; left: 0;\">
+					<img src=pic/targyak/". kutyaszamtofile($this->fajta) ."Nyakorv.png style=\"position: absolute; top: 0; left: 0;\">
+					</div>";
+			}
+			else
+			{
+			return "<div style=\"position: relative; left: 0; top: 0;\">
+					<img src=pic/kutyak/". kutyaszamtofile($this->fajta) . $this->szin .".png style=\"position: relative; top: 0; left: 0;\">
+					<img src=pic/targyak/". kutyaszamtofile($this->fajta) ."Nyakorv.png style=\"position: absolute; top: 0; left: 0;\">
+					</div>";
+			}
+		}
+		else{
+		return "<img src=pic/kutyak/". kutyaszamtofile($this->fajta) . $this->szin .".png style=\"position: relative; top: 0; left: 0;\">";
+		}
     }
     function SulyCsik($w)
     {
