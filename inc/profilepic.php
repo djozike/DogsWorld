@@ -1,6 +1,29 @@
 <?php
 include("session.php");
 include("functions.php");
+
+function is_ani($filename) {
+    if(!($fh = @fopen($filename, 'rb')))
+        return false;
+    $count = 0;
+    //an animated gif contains multiple "frames", with each frame having a
+    //header made up of:
+    // * a static 4-byte sequence (\x00\x21\xF9\x04)
+    // * 4 variable bytes
+    // * a static 2-byte sequence (\x00\x2C)
+
+    // We read through the file til we reach the end of the file, or we've found
+    // at least 2 frame headers
+    while(!feof($fh) && $count < 2) {
+        $chunk = fread($fh, 1024 * 100); //read 100kb at a time
+        $count += preg_match_all('#\x00\x21\xF9\x04.{4}\x00\x2C#s', $chunk, $matches);
+    }
+
+    fclose($fh);
+    return $count > 1;
+}
+
+
 if(isset($_SESSION['id']) && ($_FILES['upload_img'])){
 
 if (!is_uploaded_file( $_FILES['upload_img']['tmp_name'] )){
@@ -21,8 +44,16 @@ switch($_FILES['upload_img']['type']){
   case 'image/gif': $im = imagecreatefromgif ($_FILES['upload_img']['tmp_name']); break;
   case 'image/png': $im = imagecreatefrompng ($_FILES['upload_img']['tmp_name']); break;
 }
-$url="../pic/user/". $_SESSION["id"] .".png";
-imagepng($im,$url);
+if(is_ani($_FILES['upload_img']['tmp_name']))
+{
+	$url="../pic/user/". $_SESSION["id"] .".gif";
+	move_uploaded_file($_FILES['upload_img']['tmp_name'], $url);
+}
+else
+{
+	$url="../pic/user/". $_SESSION["id"] .".png";
+	imagepng($im,$url);
+}
 $_SESSION["hiba"]=ok("Sikeres kép feltöltés!");
 header("Location: ../beallitas.php");
 }

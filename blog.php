@@ -129,7 +129,11 @@ if(mysql_num_rows($kommentek)>0){
 while($komment=mysql_fetch_object($kommentek)){
 if(file_exists("pic/user/". $komment->komment_kid .".png")){
 $kep="<a href=pic/user/". $komment->komment_kid .".png target=_blank><img src=pic.php?id=". $komment->komment_kid ."&size=100 border=0></a>";
-}else{
+}
+elseif(file_exists("pic/user/". $komment->komment_kid .".gif")){
+$kep="<a href=pic/user/". $komment->komment_kid .".gif target=_blank><img src=\"pic/user/". $komment->komment_kid .".gif\" border=0  width=100 height=100></a>";
+}
+else{
 $kep="<img src=pic/user/avatar.jpg border=0 width=100 height=100>";
 }
 if($blog->blog_kutya==$_SESSION[id] or $en->rang > 0){
