@@ -9,7 +9,7 @@ $leker=mysql_query("SELECT * FROM kutya WHERE kutya_id = '". $_SESSION[id] ."'")
 if(substr_count($leker->kutya_tanul,"VE")==0){
 
 $adat="<center><big><u>Kvízelés</u></big><br><br>
-A játék célja, hogy minnél több kérdésre helyesen válaszolj. 90 másodperced van az indítástól számítva, hogy helyes választ adj, hibás válasz esetén 5 másodperc idõbüntetést kapsz. Minden nap a legtöbb helyes választ megadó 2 csont jutalomba részesûl.
+A játék célja, hogy minél több kérdésre helyesen válaszolj. 90 másodperced van az indítástól számítva, hogy helyes választ adj, hibás válasz esetén 5 másodperc idõbüntetést kapsz. Minden nap a legtöbb helyes választ megadó 2 csont jutalomba részesül.
 <br><br>
 <script src=\"script/kviz.js\"></script>
 

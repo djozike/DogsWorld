@@ -25,11 +25,11 @@ Ez egy nevelde oldal, ahol kutyát gondozhatsz virtuálisan. Mindennap etetned kel
 Az oldal fizetõeszközei. Az ossa a csont váltóeszköze. 1 csont 100 ossát ér. A rendszer automatikusan váltja át õket, neked nem kell vele törõdnöd.<br>
 <u>Hogyan szerezhetek csontot?</u><br>
 A csontszerzésnek több módja is van, az érettségizés megtanulása, ". $LEGJOBBGAZDANAP ." napig folyamatosan látogatni a kutyád, megnyerni az egyszám játékot, ha az általad vezettet falka elsõ lesz egyik héten, vagy egyéb játékok. Ezen kívül nincs más lehetõség, emelt díjas SMSsel nem tudsz csontot rendelni és ez nem is fog bevezetésre kerülni.<br>
-<u>Miért nem lehet emeltdíjas SMSsel csontot rendelni?</u><br>
+<u>Miért nem lehet emeltdíjas SMS-sel csontot rendelni?</u><br>
 Ezt az oldalt elsõsorban kiskorúak látogatják akiknek, nincsen saját keresetük és nem szeretnénk a szüleitek zsebébõl kivenni a pénzt.<br>
 <u>Hogyan tudom tanítani a kutyám?</u><br>
 A kutyám menüpontban a lap alján a bal szélén a könyv alatt tudod.<br>
-<u>Miért nem tudok a forumba írni?</u><br>
+<u>Miért nem tudok a fórumba írni?</u><br>
 Tiltva vagy, vagy nem tanultad még meg az írást.<br>
 <u>Hogyan lehet más színû a nevem?</u><br>
 A beállítás menüben veheted meg 8 csontért.<br>
@@ -50,17 +50,17 @@ Olvasd el még egyszer a segítség részt, ha még mindig nem találtál választ akkor
 
 }elseif($_GET[page]=="szabaly"){
 $adat="<center><big><big>Szabályzat</big></big></center><br><br>
-1. Az oldal hivatalos nyelve a magyar. Magyarul írj, vagy legalább a mondandód fele magyarul legyen, ez alól kivételek az idézetek (zeneszövegek).<br>
-2. Tilos bármely olyan tartalom elhelyezése (írásbeli,képi) amely pornográf, közízlésbe ütközõ, politikai vagy szélsõséges nézeteket tartalmaz.<br>
-3. Tilos bármely tartalom duplikált elhelyezése (egymás után kétszeri üzenet beküldés).<br>
-4. Tilos az oldal nem rendeltetésszerû használata, szándékos károkozás benne.(fórum széthúzása)<br>
-5. Ha a felhasználó bármely hibát észlel köteles azt jelentenie.<br>
-6. Tilos az oldal hibásan mûködõ elemeibõl adódó elõnyszerzés.<br>
-7. A fórumon a megfelelõ téma használata kötelezõ (falkahirdetések a falka témába, hirdetések a piacra, minden más segítség vagy társalgó).<br>
-8. A moderátorok választása az adminisztrátor feladata. A választás felkéréses alapon mûködik, ezért tilos többszöri kéregetés a moderátor jogért.<br>
+1. Az oldal hivatalos nyelve a magyar. Magyarul írj, vagy legalább a mondandód fele magyarul legyen, ez alól kivételek az idézetek (zeneszövegek)!<br>
+2. Tilos bármely olyan tartalom elhelyezése (írásbeli,képi) amely pornográf, közízlésbe ütközõ, politikai vagy szélsõséges nézeteket tartalmaz!<br>
+3. Tilos bármely tartalom duplikált elhelyezése (egymás után kétszeri üzenet beküldés)!<br>
+4. Tilos az oldal nem rendeltetésszerû használata, szándékos károkozás benne (fórum széthúzása)!<br>
+5. Ha a felhasználó bármely hibát észlel köteles azt jelentenie!<br>
+6. Tilos az oldal hibásan mûködõ elemeibõl adódó elõnyszerzés!<br>
+7. A fórumon a megfelelõ téma használata kötelezõ (falkahirdetések a falka témába, hirdetések a piacra, minden más segítség vagy társalgó)!<br>
+8. A moderátorok választása az adminisztrátor feladata. A választás felkéréses alapon mûködik, ezért tilos többszöri kéregetés a moderátor jogért!<br>
 9. Kutyád eladni csak a piacon szabad, a piacon árult kutyát csak az üzenõfalon vagy a fórum megfelelõ témájában lehet hirdetni (Blogban, adatlapon nem).<br>
-10. A különbözõ honlap, falka és egyéb hirdetéseket csak az üzenõfalon vagy a fórum megfelelõ témájában lehet elhelyezni (Blogban, adatlapon nem). <br>
-11. Tilos bármely hatályba lépett magyarországi törvény megszegése.<br>
+10. A különbözõ honlap, falka és egyéb hirdetéseket csak az üzenõfalon vagy a fórum megfelelõ témájában lehet elhelyezni (Blogban, adatlapon nem)! <br>
+11. Tilos bármely hatályba lépett magyarországi törvény megszegése!<br>
 12. A szabályok megszegésért a moderátorok törölhetik az üzeneted, blog bejegyzésed, adatlapod, falkád.<br>
 13. A moderátoroknak kötelességük egyszer figyelmeztetni a törlés elõtt.</center>";
 }elseif($_GET[page]=="ismerteto"){
@@ -78,7 +78,7 @@ $adat="<center><big><big>Oldal</big></big></center><br><center><table border=0>
  [img]Beszúrni kívánt kép url-je[/img]<br>
  [link= url]Link szövege[/link]<br>
  [youtube]A videó url-je [/youtube]<br>
- [color=szinkód]Szinezni kívánt szöveg[/color]<br>
+ [color=szinkód]Színezni kívánt szöveg[/color]<br>
  [nev]Adott nevû kutyának a neve színezve, linkelve[/nev]</center>
  
  <br><br><center><big><big><a id=egszsuly>A kutya egészségének és súlyának változása</a></big></big></center>
@@ -117,7 +117,7 @@ Ezen szintek felett áll az adminisztrátor, amelyek feladata az oldal fejlesztése
 $adat.=$ModLista;
 
 //legjobbgazda, egyszam	
-$adat.="<br><center><big><big><a id=legjobbgazda>Legjobbgazda cím</a></big></big></center>A Legjobbgazda cím elnyeréséhez ". $LEGJOBBGAZDANAP ." napig kell látogatnod a kutyád. Ha ezt elérted a napok száma automatikusan lenullázódik minden kutyánál amihez a te IP címedrõl léptek be, és a te kutyád megkapja a nyereményét.
+$adat.="<br><center><big><big><a id=legjobbgazda>Legjobb gazda cím</a></big></big></center>A Legjobb gazda cím elnyeréséhez ". $LEGJOBBGAZDANAP ." napig kell látogatnod a kutyád. Ha ezt elérted a napok száma automatikusan lenullázódik minden kutyánál amihez a te IP címedrõl léptek be, és a te kutyád megkapja a nyereményét.
 <br><br><center><big><big><a id=egyszam>Egyszám játék</a></big></big></center>Az egyszám játék egy \"kitalálós\" játék. Csak akkor játszhatod, ha a kutyád már megtanult számolni. A játék célja, hogy minden nap, minél kevesebb tippbõl kitalálj egy 1 és 75 közötti számot. Az alapján, hogy hány tippbõl találtad ki a táblázatnak megfelelõ pontot kapsz:
 <table border=0><tr><th align=center>Tippek</th><th align=center>Pontszám</th></tr>
 <tr><td align=center>1</td><td align=center>25</td></tr>
@@ -130,10 +130,10 @@ $adat.="<br><center><big><big><a id=legjobbgazda>Legjobbgazda cím</a></big></big
 <tr><td align=center>8</td><td align=center>4</td></tr>
 <tr><td align=center>9</td><td align=center>3</td></tr>
 <tr><td align=center>10</td><td align=center>2</td></tr>
-<tr><td align=center>több</td><td align=center>1</td></tr></table>A pontokat egy hétig gyûjtheted (hétfõ-vasárnap), és aszerint, hogy mennyi pontot gyüjtöttél kerülsz rangsorolásra(az aktuális állást láthatod az egyszám statisztika fülön). A legjobb ". SIZEOF($EGYSZAMNYEREMENY) ." kerül díjazásra.  Nyeremények: ";
+<tr><td align=center>több</td><td align=center>1</td></tr></table>A pontokat egy hétig gyûjtheted (hétfõ-vasárnap), és aszerint, hogy mennyi pontot gyûjtöttél kerülsz rangsorolásra(az aktuális állást láthatod az egyszám statisztika fülön). A legjobb ". SIZEOF($EGYSZAMNYEREMENY) ." kerül díjazásra.  Nyeremények: ";
 for($i=0; $i<SIZEOF($EGYSZAMNYEREMENY);$i++)
 {
-$adat.=($i+1).". helyezet ". penz($EGYSZAMNYEREMENY[$i]);
+$adat.=($i+1).". helyezett ". penz($EGYSZAMNYEREMENY[$i]);
 if($i==SIZEOF($EGYSZAMNYEREMENY)-1)
 {
 $adat.=".";

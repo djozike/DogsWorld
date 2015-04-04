@@ -14,7 +14,7 @@ document.getElementById('kutya').src = 'pic/kutyak/'+i+'1.png';
 
 
 
-$adat="<center><big><big><u>Új kutya regisztráció</big></big></u></center><br><center>Új kutya regisztrációjához meg kell adnod néhány adatot. Figyelmes légy mivel a jelszó és e-mail cím kivételével már nem változtathatsz rajt. Az e-mail címed bizalmasan kezeljük. Kérjük, a te érdekedben minél bonyolultabb jelszót adj meg. A jobb oldali képen láthatod hogy fog kinézni a kutyád. A regisztráció gomb megnyomásával egyben az Általános Felhasználói Feltételeket és Adatvédelmi szabályzatot is elfogadod.</center><br>
+$adat="<center><big><big><u>Új kutya regisztráció</big></big></u></center><br><center>Új kutya regisztrációjához meg kell adnod néhány adatot. Figyelmes légy mivel a jelszó és e-mail cím kivételével már nem változtathatsz rajta. Az e-mail címed bizalmasan kezeljük. Kérjük, a te érdekedben minél bonyolultabb jelszót adj meg. A jobb oldali képen láthatod hogy fog kinézni a kutyád. A regisztráció gomb megnyomásával egyben az Általános Felhasználói Feltételeket és Adatvédelmi szabályzatot is elfogadod.</center><br>
 <center><table border=0><tr><td>". $js ."
 <table><tr><td align=left>Kutyád neve:</td><td><input type=text name='nev'></td><td align=left><small>min 3, max 16 karakter</small></td></tr>
 <tr><td align=left>Jelszó:</td><td><input type=password name='jelszo'></td><td align=left><small>min 4, max 16 karakter</small></td></tr>

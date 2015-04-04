@@ -66,7 +66,7 @@ $adat.="<center><big><big><u>Üzenõfal</u></big></big><br><br>Szeretnél valamit m
  <tr><td><input type=radio name=hova value=6 style='width:20px;'></td><td align=left>A végtelen semmibe</td></tr>
  </table> </td></tr><tr><td align=left>Üzeneted színe(+". penz($UZENOFAL_SZINES) ."):</td><td align=left>
  <select name=szin>
-<option value=0>Nem szinezek</option>
+<option value=0>Nem színezek</option>
 <option value=9 style='color: #800000'>Vörös</option>
 <option value=8 style='color: #C90000'>Piros</option>
 <option value=34 style='color: #FF0000'>Világos Piros</option>

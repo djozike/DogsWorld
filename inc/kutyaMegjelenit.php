@@ -13,7 +13,7 @@ if($kuty->Tanult("BR")){ $tanul.="Lottózni</br>"; }
 if($kuty->Tanult("ER")){ $tanul.="Érettségizni</br>"; }
 if($kuty->Tanult("FU")){ $tanul.="Fül befogása</br>"; }
 if($kuty->Tanult("KE")){ $tanul.="Kereskedés</br>"; }
-if($kuty->Tanult("VE")){ $tanul.="Vezetés</br>"; }
+if($kuty->Tanult("VE")){ $tanul.="Kvíz</br>"; }
 echo '
 <p align=right><a href = "javascript:void(0)" onclick = "info(1)" class="feherlink">Bezár [x]</a></p>
 <TABLE BORDER="0">

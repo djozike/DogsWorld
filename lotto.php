@@ -5,17 +5,14 @@ include("inc/oop.php");
 if(isset($_SESSION[id])){
 $leker=mysql_query("SELECT * FROM kutya WHERE kutya_id = '". $_SESSION[id] ."'");
 if(substr_count($leker->kutya_tanul,"BR")==0){
-/*
-$handle = fopen("data/lottonyeremeny.txt", "r");
-$nyeremeny=fread($handle, filesize("data/lottonyeremeny.txt"));
-fclose($handle);*/
+
 $l = new lotto();
 $nyeremeny=$l->nyeremeny;
 for($i=1;$i<11;$i++){
 $szamok.="<option value=". $i .">". $i ."</option>";
 }
 $adat="<center><big><u>Lottó</u></big><br><br>
-A lottón 10bõl 3 számot kell helyesen eltalálnod. Hetente van lottóhuzás, csak a telitalálatos nyer. 
+A lottón 10-bõl 3 számot kell helyesen eltalálnod. Hetente van lottóhuzás, csak a telitalálatos nyer. 
 Ha több telitalálos is van a nyereményt egyenlõen felosztjuk. Ha viszont nincs egy nyertes sem, a nyeremény áttolodik a következõ hétre. Egy lottó szelvény ára ". penz($LOTTO) .".<br>
 Eheti nyeremény: <u><b>". penz($nyeremeny) ."</b></u><br><br>
 <table border=0 cellpadding=0 cellspacing=0><tr><td width=11 height=11 background=pic/balfelso2.jpg></td><td background=pic/hatter8.gif width=450></td><td width=11 height=11 background=pic/jobbfelso2.jpg></td></tr>

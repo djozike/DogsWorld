@@ -8,7 +8,7 @@ $leker=mysql_query("SELECT kutya_nev, kutya_id FROM kutya WHERE kutya_nev = '". 
 if(mysql_num_rows($leker)>0){
 while($kutya=mysql_fetch_object($leker)){
 if($kutya->kutya_id==$_SESSION[id]){
-$_SESSION[hiba]=hiba("Magadat nem tilthatód le!");
+$_SESSION[hiba]=hiba("Magadat nem tilthatod le!");
 header("Location: ../uzenetek.php?page=tilto");
 }else{
 $leker1=mysql_query("SELECT * FROM tilto WHERE tilto_tiltott = '". $kutya->kutya_id ."' and tilto_tilto = '". $_SESSION[id] ."'");

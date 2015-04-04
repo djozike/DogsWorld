@@ -43,7 +43,7 @@ xmlhttp.send();
 	}
 </script>
 <center>".VilagosMenu(600,	"<form action=inc/ujblog.php". $id ." method=POST>
-<big><big>Új bejegyzés irása a blogba</big></big><br><br>
+<big><big>Új bejegyzés írása a blogba</big></big><br><br>
 <table><tr><td align=left>Bejegyzés címe:</td><td align=right><input type=text name=cim id=cim maxlength=60 value='". $blogCim ."'></td><td>max. 60 karakter</td></tr>
 <tr><td colspan=3 align=center>Bejegyzés:</td></tr><tr><td colspan=3 align=center><textarea name=leiras cols=50 rows=12 id=bloog>". $blogBejegyzes ."</textarea></td></tr><tr><td colspan=3 align=center><input type=button value='Elõnézet' onclick='elonezet()'> <input type=submit value='Elküld'></td></tr></table>").
 "<br><div id=\"elonezet\"></div>";

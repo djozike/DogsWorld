@@ -18,8 +18,9 @@ $UZENOFAL=75;
 $UZENOFAL_SZINES=25;
 ///jutaélok
 $PENZKULDOSZAZALEK=0.9;
+$PIACELADSZAZALEK=0.8;
 //torles
-$LEVELTORLES=7;
+$LEVELTORLES=14;
 ///legjobb gazda
 $LEGJOBBGAZDANYEREMENY=10;
 $LEGJOBBGAZDANAP=10;
@@ -30,6 +31,9 @@ $EGYSZAMNYEREMENY[2]=100;
 ///fagyasztas
 $FAGYASZTMINAP=5;
 $FAGYASZTIDO=20;
+//piac
+$PIACMINAR=2;
+$PIACMAXAR=12;
 ///blog es komment iras
 if(file_exists("../data/blogiras.txt"))
 {
