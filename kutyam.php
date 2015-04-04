@@ -24,23 +24,22 @@ $_SESSION[id]=$kutyus->id;
 
 $kep="<table>
 <tr><td align=center>". $kutyus->NevMegjelenit() ." ". $kutyus->kor ." napja született!</td></tr>
-<tr><td align=center>". $kutyus->Kep() ."</td></tr>
+<tr><td align=center><idv id='kep'>". $kutyus->Kep() ."</div></td></tr>
 </table>";
 
 $vonalak="<table><tr><th align=left>Egészség: </th><th align=right>". $kutyus->egeszseg ."%</th></tr><tr><td colspan=2>". $kutyus->EgeszsegCsik($kutyus->egeszseg*3) ."</td></tr><tr><th align=left>Súly: </th><th align=right>". $kutyus->suly ."%</th></tr><tr><td colspan=2>". $kutyus->SulyCsik($kutyus->suly*3) ."</td></tr></table>";
 
-$talak='<div id="fade" class="black_overlay"></div><div id="light" class="white_content"><p align=right><a href = "javascript:void(0)" onclick = "kajavaltablak()" class="feherlink">Bezár [x]</a></p>
+$talak='<div id="fade" class="black_overlay"></div><div id="light" class="white_content"><p align=right><a href = "javascript:void(0)" onclick = "megjelenit(\'light\')" class="feherlink">Bezár [x]</a></p>
 <center><u><big>Étel típus csere</big></u><br>Itt lecserélheted a kutyád tápját, de figyelem a különbözõ ételek máshogy hatnak az állatod egészség és súly növekedésére. <a href=segitseg.php?page=ismerteto#egszsuly class="feherlink">Hogyan?</a><br>Ára: <b>'. penz($KAJA) .'</b><br><input type=radio name=kaja id=kaja1 value=1 style="width: 20px;"><img src=pic/salata2.gif>Saláta<br>
 <input type=radio id=kaja2 name=kaja value=2 style="width: 20px;"> <img src=pic/tal2.gif> Táp&nbsp;&nbsp;<br><input type=radio name=kaja id=kaja3 value=3 style="width: 20px;"><img src=pic/fagyi2.gif>Fagylalt<br><input type=submit value=Elküld onclick="kajavalt()"><br><span id="kiiras"></span></center></div>';
-$talak.="<table border=0 cellpadding=0 cellspacing=0><tr><th align=left colspan=7>Étel: (még <span id=\"kajakiir\">". $kutyus->kaja ."</span> napra elég van) "; 
-$talak.='<a href = "javascript:void(0)" onclick = "kajavaltablak()" class="feherlink">[Változtat]</a></th></tr><tr id="talak">'. $kutyus->Talak().'</tr>';
+$talak.="<table border=0 cellpadding=0 cellspacing=0><tr><th align=left colspan=7>Étel: (még <span id=\"kajakiir\">". $kutyus->kaja ."</span> napra elég van)</th></tr><tr id=\"talak\">". $kutyus->Talak()."</tr>";
 $talak.='<tr id="etet">'. $kutyus->EtetMegjelenit() .'</tr></table><script src="script/kutyam.js"></script>';
 if($kutyus->belepido<$ma && $kutyus->belepido>=($ma-24*60*60))
 {
 if($kutyus->Latogat())
 {
 $kutyus->PenzHozzaad($LEGJOBBGAZDANYEREMENY);
-$kutyus->SendUzenet(0, "Gratulálunk!<br>Szorgos munkád meghozta a gyümölcsét, kaptál". penz($LEGJOBBGAZDANYEREMENY) ." összeget, mivel elnyerted a legjobb gazda címet.");         
+$kutyus->SendUzenet(0, "Gratulálunk!<br>Szorgos munkád meghozta a gyümölcsét, kaptál ". penz($LEGJOBBGAZDANYEREMENY) ." összeget, mivel elnyerted a legjobb gazda címet.");         
 }
 }
 elseif($kutyus->belepido<($ma-24*60*60))
@@ -48,7 +47,7 @@ elseif($kutyus->belepido<($ma-24*60*60))
 $kutyus->NemLatogat();
 }else{}
 
-$legjobbgazd="<table><tr><th><img src=pic/gazda.png></th><td width=700 style='text-align:justify;'>Szerezd meg a legjobb gazdi címet és az ". penz($LEGJOBBGAZDANYEREMENY) ." nyereményt! Ehhez nem kell mást tenned, csupán minden nap ". $LEGJOBBGAZDANAP ." napon keresztül folyamatosan látogasd a kutyádat, és máris tied az ". penz($LEGJOBBGAZDANYEREMENY) .". Még <b>". ($LEGJOBBGAZDANAP-$kutyus->legjobbgondozo) ."</b> napot kell látogatnod. <a href=segitseg.php?page=ismerteto#legjobbgazda class='feherlink'>Részletek...</a></td></tr></table>"; 
+$legjobbgazd="<table><tr><th><img src=pic/gazda.png></th><td width=700 style='text-align:justify;'>Szerezd meg a legjobb gazdi címet és a(z) ". penz($LEGJOBBGAZDANYEREMENY) ." nyereményt! Ehhez nem kell mást tenned, csupán minden nap ". $LEGJOBBGAZDANAP ." napon keresztül folyamatosan látogasd a kutyádat, és máris tied az ". penz($LEGJOBBGAZDANYEREMENY) .". Még <b>". ($LEGJOBBGAZDANAP-$kutyus->legjobbgondozo) ."</b> napot kell látogatnod. <a href=segitseg.php?page=ismerteto#legjobbgazda class='feherlink'>Részletek...</a></td></tr></table>"; 
 if($kutyus->kor>$FAGYASZTMINAP){
 $lehet="aktiv";
 $fagyasztas=$kutyus->FagyasztasMegjelenit();
@@ -57,7 +56,50 @@ $lehet="inaktiv";
 $fagyasztas="A kutyád még túl fiatal ahhoz hogy le fagyaszd, megfázna és elpusztulna ezért csak ". $FAGYASZTMINAP ." napos kor felett fagyaszthatod le.";
 }
 ///
-$egyszam=$kutyus->EgyszamMegjelenit($_SESSION[hiba]);
+$egyszam='<div id="egyszamablak" class="white_content"><p align=right><a href = "javascript:void(0)" onclick = "megjelenit(\'egyszamablak\')" class="feherlink">Bezár [x]</a></p>
+<center><u><big>Egyszámjáték</big></u><div style="display: table;"><img style="vertical-align:middle;display: table-cell;" src=pic/egyszam.png>
+   <span style="vertical-align: middle;display: table-cell;text-align:justify;"  id=\'egyszamjatek\'>'. $kutyus->EgyszamMegjelenit($_SESSION[hiba]) .'</span></div></div>';
+
+$targylista="<table border=0>";
+$db=0;
+$targyakLekeres = mysql_query("SELECT * FROM targyak");
+	while($targyak=mysql_fetch_object($targyakLekeres))
+	{
+		$fajtak = explode("|", $targyak->targyak_fajta);
+		if(in_array($kutyus->fajta, $fajtak))
+		{
+			$targylista.="<tr><td  width= 400 align=center>". $targyak->targyak_nev ."<br>Ár:". penz($targyak->targyak_ar) ."<br>";
+			if(!$kutyus->VanTargy($targyak->targyak_id))
+			{
+				$targylista.="<input type=button id=\"megvesz". $targyak->targyak_id ."\" name=vetel value=Megveszem onclick=\"targyvesz('". $targyak->targyak_id ."')\">";
+				$targylista.="<input type=button id=\"levesz". $targyak->targyak_id ."\" name=levetel value=\"Leveszem\" style= \"display: none;\">";
+			}
+			else
+			{
+				$targylista.="<input type=button id=\"levesz". $targyak->targyak_id ."\" name=levetel value=\"Leveszem\">";
+			}
+			$targylista.="</td><td width = 200>
+				<div style=\"position: relative; left: 0; top: 0;\">
+				<img src=pic/kutyak/". kutyaszamtofile($kutyus->fajta) . $kutyus->szin .".png width=60% style=\"position: relative; left: 0; top: 0;\">
+				<img src=pic/targyak/". kutyaszamtofile($kutyus->fajta) . $targyak->targyak_file .".png width=60% style=\"position: absolute; top: 0; left: 0;\">
+				</div>
+			</td></tr>";
+			$db++;
+		}
+	}
+$targylista.="</table>";
+if($db == 0)
+{
+	$targylista = "<big><font color=#ff0000>Sajnos ehhez a fajtához nem tartozik tárgy!</font></big>";
+}  
+$bolt='<div id="targyablak" class="white_content"><p align=right><a href = "javascript:void(0)" onclick = "megjelenit(\'targyablak\')" class="feherlink">Bezár [x]</a></p>
+<center><u><big>Tárgyak</big></u><br><span id="targyhiba"></span><br>'. $targylista .'</center></div>';
+$bolt.='<div id="gyogyszerablak" class="white_content"><p align=right><a href = "javascript:void(0)" onclick = "megjelenit(\'gyogyszerablak\')" class="feherlink">Bezár [x]</a></p>
+<center><u><big>Gyógyszerek</big></u><br>HAMAROSAN...</center></div>';
+$bolt.='<div id="szinezesablak" class="white_content"><p align=right><a href = "javascript:void(0)" onclick = "megjelenit(\'szinezesablak\')" class="feherlink">Bezár [x]</a></p>
+<center><u><big>Név színezés</big></u><br>HAMAROSAN...</center></div>';
+$bolt.="A boltban szép és hasznos dolgokat vehetsz.<center><a href = \"javascript:void(0)\" onclick = \"megjelenit('targyablak')\" class=\"feherlink\">Tárgyak</a><br><a href = \"javascript:void(0)\" onclick = \"megjelenit('gyogyszerablak')\" class=\"feherlink\">Gyógyszerek</a><br><a href = \"javascript:void(0)\" onclick = \"megjelenit('szinezesablak')\" class=\"feherlink\">Név színezés</a><br><a href = \"javascript:void(0)\" onclick = \"megjelenit('light')\" class=\"feherlink\">Étel csere</a></center>";
+
 $_SESSION[hiba]="";
 ///
 belepido($_SESSION[nev]);
@@ -132,7 +174,7 @@ function confirmDelete() {
   }
 }
 </script>';
-$sziv="a"; $hazas.="Gratulálunk! Már <b>". $feltolt ."</b> napja házastársak vagytok a ". $nev1 ." nevû kutyával! Valóban szép teljesítmény.<br><center><a href=inc/kolyok.php class='feherlink'>Kölyökkutya</a><br><a href='javascript:confirmDelete()' class='feherlink'>El akarok válni</a></center>"; 
+$sziv="a"; $hazas.="Gratulálunk! Már <b>". $feltolt ."</b> napja házastársak vagytok a(z) ". $nev1 ." nevû kutyával! Valóban szép teljesítmény.<br><center><a href=inc/kolyok.php class='feherlink'>Kölyökkutya</a><br><a href='javascript:confirmDelete()' class='feherlink'>El akarok válni</a></center>"; 
 }
 }
 }else{
@@ -161,7 +203,7 @@ if(substr_count($leker->kutya_tanul,"KE")==0){ $tanul.="<option value=KE>Kereske
 if(substr_count($leker->kutya_tanul,"VE")==0){ $tanul.="<option value=VE>Kvíz(";$tudas=mysql_query("SELECT * FROM `tanul` WHERE `tanul_id` = '". $leker->kutya_id ."' and `tanul_mit` = 'VE'",$kapcsolat);$lecke=0;while ($row = mysql_fetch_object($tudas)) { $lecke=12-$row->tanul_lecke; } $tanul.=$lecke. "/12)</option>"; }
 $tanul.="</select><br><input type=submit name=elkuld value=Tanítás></form></center>";
 }
-$tanul.="<br>Picit fel szeretnéd gyorsítani dolgot? 50 ossáért puskázd ki és rögtön megtanulja a kutyád.<center><form method=POST action=inc/puska.php><select name=puska>";
+$tanul.="<br>Picit fel szeretnéd gyorsítani a dolgot? 50 ossáért puskázd ki és rögtön megtanulja a kutyád.<center><form method=POST action=inc/puska.php><select name=puska>";
 if(substr_count($leker->kutya_tanul,"IR")==0){ $tanul.="<option value=IR>Írni tanulni</option>"; }
 if(substr_count($leker->kutya_tanul,"SZ")==0){ $tanul.="<option value=SZ>Számolni tanulni</option>"; }
 if(substr_count($leker->kutya_tanul,"BR")==0){ $tanul.="<option value=BR>Lottózni</option>"; }
@@ -173,6 +215,10 @@ $tanul.="</select><input type=submit name=elkuld value=Puskázz></form></center>"
 }
 
 $lotto="";
+if(substr_count($leker->kutya_tanul,"SZ")==0){
+}else{
+$lotto.=$egyszam . "<a href = \"javascript:void(0)\" onclick = \"megjelenit('egyszamablak')\" class='feherlink'>Egyszámjáték</a><br>";
+}
 if(substr_count($leker->kutya_tanul,"BR")==0){
 }else{
 $lotto.="<a href=lotto.php class='feherlink'>Lottó</a><br>";
@@ -182,36 +228,36 @@ if(substr_count($leker->kutya_tanul,"VE")==0){
 $lotto.="<a href=autoverseny.php class='feherlink'>Kvíz</a><br>";
 }
 if($lotto==""){
-$lotto="Sajnos te még semmi játékkkal nem tudsz játszani. De ne buslakodj, inkább tanulj meg egy-kettõt és játsz!";
+$lotto="Sajnos te még semmi játékkal nem tudsz játszani. De ne búslakodj, inkább tanulj meg egy-kettõt és játssz!";
 }
 $menu="<table border=0 cellpadding=5 cellspacing=0>
 <tr>
 	<td><img src=pic/tanul.png></td>
 	<td background=pic/hatter8.gif><img src=pic/". $sziv ."hazassag.png></td>
 	<td><img src=pic/". $lehet ."fagyaszt.png></td>
-	<td background=pic/hatter8.gif><img src=pic/egyszam.png></td>
+	<td background=pic/hatter8.gif><img src=pic/bolt.png></td>
 	<td><img src=pic/lotto.png></td></tr>
 <tr>
 	<td align=center><i>Tanulás</i></td>
 	<td align=center background=pic/hatter8.gif><i>Házasság</i></td>
 	<td align=center><i>Fagyasztás</i></td>
-	<td align=center background=pic/hatter8.gif><i>Egyszám játék</i></td>
+	<td align=center background=pic/hatter8.gif><i>Bolt</i></td>
 	<td align=center><i>Játékok</i></td></tr>
 <tr VALIGN=TOP>
 	<td width=150 style='text-align:justify;'>". $tanul ."</td>
 	<td width=150 style='text-align:justify;' background=pic/hatter8.gif>". $hazas ."</td>
 	<td width=150 style='text-align:justify;' id='fagyaszt'>". $fagyasztas ."</td>
-	<td background=pic/hatter8.gif width=150 style='text-align:justify;' id='egyszamjatek'>". $egyszam ."</td>
+	<td width=150 style='text-align:justify;' background=pic/hatter8.gif>". $bolt ."</td>
 	<td width=150 style='text-align:justify;'><center>". $lotto ."</center></td></tr></Table>";
 }
 $adat="<style>
 .black_overlay{
 			display: none;
-			position: absolute;
-			top: 27%;
-			left: 27%;
-			width: 55%;
-			height: 33%;
+			position: fixed;
+			top: 0px;
+			left: 0px;
+			width: 100%;
+			height: 100%;
 			background-color: black;
 			z-index:1001;
 			-moz-opacity: 0.8;
@@ -220,11 +266,11 @@ $adat="<style>
 		}
 		.white_content {
 			display: none;
-			position: absolute;
+			position: fixed;
 			top: 25%;
-			left: 25%;
-			width: 50%;
-			height: 30%;
+			left: 30%;
+			width: 500px;
+			height: 350px;
 			padding: 6px;
 			border: 11px solid #cc9866;
 			background-image:url('pic/keret3.gif');
