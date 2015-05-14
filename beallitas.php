@@ -1,7 +1,7 @@
 <?php
 include("inc/session.php");
 include("inc/sql.php");
-include("inc/functions.php");
+include("inc/oop.php");
 if(isset($_SESSION[id])){
 $lekeres=mysql_query("SELECT * FROM adatlap WHERE adatlap_id = '". $_SESSION[id] ."'");
 $lekeres2=mysql_query("SELECT * FROM kutya WHERE kutya_id = '". $_SESSION[id] ."'");
@@ -121,12 +121,9 @@ $hatterszin.="<option value=". $i .">". hatterszin($i) ."</option>";
 }
 }
 $hatterszin.="</select>";
-if(file_exists("pic/user/". $_SESSION[id] .".png")){
-$kep="<td colspan=2 align=center><a href=pic/user/". $_SESSION[id] .".png target=_blank><img src=pic.php?id=". $_SESSION[id] ." border=0></a><br><a href=inc/keptorol.php class='feherlink'>Kép törlése</a></td>";
-}else{
-$kep="<th colspan=2 align=center><img src=pic/user/avatar.jpg border=0 width=200 height=200></th>";
-}
 
+$kutyam = new kutya();
+$kutyam->getKutyaByID($_SESSION[id]);
 
 $adat="<center><big><u>Beállítások</u></big><br>". $_SESSION[hiba] ."<br><table border=0 cellpadding=0 cellspacing=0><tr><td width=11 height=11 background=pic/balfelso2.jpg></td><td background=pic/hatter8.gif width=450></td><td width=11 height=11 background=pic/jobbfelso2.jpg></td></tr>
 <tr><td background=pic/hatter8.gif colspan=3 align=center><i>Jelszó módosítás</i><br><br><form action=inc/bealit.php method=POST><table><tr>
@@ -213,7 +210,7 @@ Jelenleg adatlapod: ". $allapot ."<br> Ahhoz hogy az adatlapod aktív legyen mind
 <table border=0 cellpadding=0 cellspacing=0><tr><td width=11 height=11 background=pic/balfelso2.jpg></td><td background=pic/hatter8.gif width=450></td><td width=11 height=11 background=pic/jobbfelso2.jpg></td></tr><tr><td background=pic/hatter8.gif colspan=3 align=center><p style='text-align:justify;'>
 Maximum 256 kilobyte méretû illetve JPG, PNG vagy GIF<br> formátumú fájlt tölthetsz fel! A feltöltött képek a<br> ". $SITENAME ." tulajdonát képezik, így azt bármikor a feltöltõ<br> engedélye nélkül törölheti vagy felhasználhatja!</p>
 <table border=0><tr><td align=center width=300 colspan=2>Fõ kép:</td></tr>
-<tr>". $kep ."</tr>
+<tr><td align=center width=300 colspan=2>". $kutyam->Avatar(200) ."<br><a href=inc/keptorol.php class='feherlink'>Kép törlése</a></td></tr>
 <tr><td><form enctype='multipart/form-data' action='inc/profilepic.php' method='POST'><input name='upload_img' type='file' size=10></td><td><input type='submit' value='OK' style='width:60px;'></form></td></tr>
 </table>
 </td><tr><td width=11 height=11 background=pic/balalso2.jpg></td><td background=pic/hatter8.gif width=450></td><td width=11 height=11 background=pic/jobbalso2.jpg></td></tr></tr></table></center>";

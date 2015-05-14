@@ -253,6 +253,21 @@ include_once("functions.php");
       return "<table border=0 cellpadding=0 cellspacing=0><tr><th width=3 height=12 background=pic/". $v[0] .".JPG></th><th width=". $w ." height=12 background=pic/". $v[1] .".JPG></th><th width=3 height=12 background=pic/". $v[2] .".JPG></th></tr></table>";
 
     }
+	function Avatar($size)
+	{
+		if(file_exists("pic/user/". $this->id .".png")){
+			$kep="<a href=pic/user/". $this->id .".png target=_blank><img src=pic.php?id=". $this->id ."&size=". $size ." border=0></a>";
+		}
+		elseif(file_exists("pic/user/". $this->id .".gif")){
+			$kep="<a href=pic/user/". $this->id .".gif target=_blank><img src=\"pic/user/". $this->id .".gif\" border=0  width=". $size ." height=". $size ."></a>";
+		}
+		else{
+			$kep="<img src=pic/user/avatar.jpg border=0 width=". $size ." height=". $size .">";
+		}
+		
+		return $kep;
+	}
+	
     function Talak()
     {
      switch($this->kajatipus){
