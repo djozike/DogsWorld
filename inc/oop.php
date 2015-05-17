@@ -255,14 +255,15 @@ include_once("functions.php");
     }
 	function Avatar($size)
 	{
-		if(file_exists("pic/user/". $this->id .".png")){
-			$kep="<a href=pic/user/". $this->id .".png target=_blank><img src=pic.php?id=". $this->id ."&size=". $size ." border=0></a>";
+	
+		if(file_exists("pic/user/". $this->id .".png") or file_exists("../pic/user/". $this->id .".png")){
+			$kep="<a href=http://". $_SERVER['SERVER_NAME'] ."/pic/user/". $this->id .".png target=_blank><img src=http://". $_SERVER['SERVER_NAME'] ."/pic.php?id=". $this->id ."&size=". $size ." border=0></a>";
 		}
-		elseif(file_exists("pic/user/". $this->id .".gif")){
-			$kep="<a href=pic/user/". $this->id .".gif target=_blank><img src=\"pic/user/". $this->id .".gif\" border=0  width=". $size ." height=". $size ."></a>";
+		elseif(file_exists("pic/user/". $this->id .".gif") or file_exists("../pic/user/". $this->id .".gif")){
+			$kep="<a href=http://". $_SERVER['SERVER_NAME'] ."/pic/user/". $this->id .".gif target=_blank><img src=\"http://". $_SERVER['SERVER_NAME'] ."/pic/user/". $this->id .".gif\" border=0  width=". $size ." height=". $size ."></a>";
 		}
 		else{
-			$kep="<img src=pic/user/avatar.jpg border=0 width=". $size ." height=". $size .">";
+			$kep="<img src=http://". $_SERVER['SERVER_NAME'] ."/pic/user/avatar.jpg border=0 width=". $size ." height=". $size .">";
 		}
 		
 		return $kep;
