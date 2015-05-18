@@ -127,18 +127,15 @@ $adat.="<a href=javascript:viewMore(\"two\"); class=\"barna\">Új komment írása:<
 $kommentek=mysql_query("SELECT * FROM komment WHERE komment_blog = '". $blog->blog_id ."' ORDER BY komment_id DESC");
 if(mysql_num_rows($kommentek)>0){
 while($komment=mysql_fetch_object($kommentek)){
-if(file_exists("pic/user/". $komment->komment_kid .".png")){
-$kep="<a href=pic/user/". $komment->komment_kid .".png target=_blank><img src=pic.php?id=". $komment->komment_kid ."&size=100 border=0></a>";
-}else{
-$kep="<img src=pic/user/avatar.jpg border=0 width=100 height=100>";
-}
+$kommenteloKutya = new kutya();
+$kommenteloKutya->getKutyaByID($komment->komment_kid);
 if($blog->blog_kutya==$_SESSION[id] or $en->rang > 0){
 $torol="<a href=inc/ktorol.php?id=". $komment->komment_id ." class='feherlink'>Törlés</a>";
 }
 $adat.="<table border=0 width=750 CELLSPACING=0 CELLPADDING=0><tr background=pic/hatter8.gif><td align=left class='forum' colspan=2>
 <table border=0 width=750 CELLSPACING=0 CELLPADDING=0><tr><td align=left><a href=kutyak.php?id=". $komment->komment_kid ." class='feherlink'>". $komment->komment_nev ."</a></td><td align=right>". $torol ." ". str_replace("-",".",$komment->komment_ido) ."</td></tr></table>
 </td></tr>
-<tr><td background=pic/hatter8.gif align=center height=105 valign=top width=110><center>". $kep ." </center></td><td align=left valign=top width=640 class='forum'><div style='width: 640px; overflow-x: auto;'>". nl2br($komment->komment_komment) ."</td></tr></table><br>";
+<tr><td background=pic/hatter8.gif align=center height=105 valign=top width=110><center>". $kommenteloKutya->Avatar(100) ." </center></td><td align=left valign=top width=640 class='forum'><div style='width: 640px; overflow-x: auto;'>". nl2br($komment->komment_komment) ."</td></tr></table><br>";
 }
 }else{
 $adat.=hiba("<br>Nincsenek még kommentek!");
