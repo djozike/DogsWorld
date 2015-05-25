@@ -72,11 +72,22 @@ $targyakLekeres = mysql_query("SELECT * FROM targyak");
 			if(!$kutyus->VanTargy($targyak->targyak_id))
 			{
 				$targylista.="<input type=button id=\"megvesz". $targyak->targyak_id ."\" name=vetel value=Megveszem onclick=\"targyvesz('". $targyak->targyak_id ."')\">";
-				$targylista.="<input type=button id=\"levesz". $targyak->targyak_id ."\" name=levetel value=\"Leveszem\" style= \"display: none;\">";
+				$targylista.="<input type=button id=\"levesz". $targyak->targyak_id ."\" name=levetel value=\"Leveszem\" style= \"display: none;\" onclick=\"targylevesz('". $targyak->targyak_id ."')\">";
+				$targylista.="<input type=button id=\"felvesz". $targyak->targyak_id ."\" name=felvetel value=\"Felveszem\" style= \"display: none;\" onclick=\"targyfelvesz('". $targyak->targyak_id ."')\">";
 			}
 			else
 			{
-				$targylista.="<input type=button id=\"levesz". $targyak->targyak_id ."\" name=levetel value=\"Leveszem\">";
+				if($kutyus->RajtavanTargy($targyak->targyak_id))
+				{
+					$targylista.="<input type=button id=\"levesz". $targyak->targyak_id ."\" name=levetel value=\"Leveszem\" onclick=\"targylevesz('". $targyak->targyak_id ."')\">";
+					$targylista.="<input type=button id=\"felvesz". $targyak->targyak_id ."\" name=felvetel value=\"Felveszem\" style= \"display: none;\" onclick=\"targyfelvesz('". $targyak->targyak_id ."')\">";
+				}
+				else
+				{
+					$targylista.="<input type=button id=\"levesz". $targyak->targyak_id ."\" name=levetel value=\"Leveszem\" style= \"display: none;\" onclick=\"targylevesz('". $targyak->targyak_id ."')\">";
+					$targylista.="<input type=button id=\"felvesz". $targyak->targyak_id ."\" name=felvetel value=\"Felveszem\" onclick=\"targyfelvesz('". $targyak->targyak_id ."')\">";
+
+				}
 			}
 			$targylista.="</td><td width = 200>
 				<div style=\"position: relative; left: 0; top: 0;\">

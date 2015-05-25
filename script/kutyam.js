@@ -124,6 +124,7 @@ AjaxAdatKuld("inc/ajax.php?targyid="+mit, function(){
 		document.getElementById("penz").innerHTML=valasz[0];
 		document.getElementById("kep").innerHTML=valasz[1];
 		document.getElementById("megvesz"+mit).style.display='none';
+		document.getElementById("levesz"+mit).style.display='block';
 		document.getElementById("targyhiba").innerHTML="";
 		megjelenit('targyablak');
     }
@@ -131,5 +132,27 @@ AjaxAdatKuld("inc/ajax.php?targyid="+mit, function(){
 	{
 		document.getElementById("targyhiba").innerHTML="<br>"+arguments[0];
 	}
+});  
+}
+
+function targylevesz(mit)
+{
+AjaxAdatKuld("inc/ajax.php?targyleid="+mit, function(){ 
+		document.getElementById("kep").innerHTML=arguments[0];
+		document.getElementById("levesz"+mit).style.display='none';
+		document.getElementById("felvesz"+mit).style.display='block';
+		document.getElementById("targyhiba").innerHTML="";
+		megjelenit('targyablak');
+});  
+}
+
+function targyfelvesz(mit)
+{
+AjaxAdatKuld("inc/ajax.php?targyfelid="+mit, function(){ 
+		document.getElementById("kep").innerHTML=arguments[0];
+		document.getElementById("felvesz"+mit).style.display='none';
+		document.getElementById("levesz"+mit).style.display='block';
+		document.getElementById("targyhiba").innerHTML="";
+		megjelenit('targyablak');
 });  
 }

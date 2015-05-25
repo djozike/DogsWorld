@@ -26,7 +26,7 @@ include_once("functions.php");
     var $adatlap = false;
     var $blog = false;
 	var $targyak = array();
-
+	var $targyakHord = array();
 
     function GetKutya($leker) {
         global $ma;
@@ -140,6 +140,13 @@ include_once("functions.php");
                   $this->targyak[$db]=$Targyak->kutyatargyak_targyid;
 				$db++;
               }
+			  $lekerTargyak=mysql_query("SELECT * FROM `kutyatargyak` WHERE `kutyatargyak_kutyaid` = '". $this->id ."' and `kutyatargyak_hord` = '1'");
+			  $db=0;
+              while($Targyak=mysql_fetch_object($lekerTargyak))
+              {
+                  $this->targyakHord[$db]=$Targyak->kutyatargyak_targyid;
+				$db++;
+              }
         return true;
         }
         return false;
@@ -227,11 +234,13 @@ include_once("functions.php");
 		$kep="<div style=\"position: relative; left: 0; top: 0;\">
 					<img src=pic/kutyak/". kutyaszamtofile($this->fajta) . $this->szin .".png style=\"position: relative; top: 0; left: 0;\">";
 	
-		for($i=0; $i<sizeof($this->targyak);$i++)
+		for($i=0; $i<sizeof($this->targyakHord);$i++)
 		{
 			$targy = new targy();
-			$targy->GetTargyByID($this->targyak[$i]);
+			if($targy->GetTargyByID($this->targyakHord[$i]))
+			{
 				$kep.="<img src=pic/targyak/". kutyaszamtofile($this->fajta) . $targy->file .".png style=\"position: absolute; top: 0; left: 0;\">";
+			}
 		}
 
 		return $kep . "</div>";
@@ -586,6 +595,11 @@ include_once("functions.php");
 		return in_array($targyID, $this->targyak);
 	}
 	
+	function RajtavanTargy($targyID)
+	{
+		return in_array($targyID, $this->targyakHord);
+	}
+	
 	function TargyHozzaAdd($targyID)
 	{
 		$ujTargy = new targy();
@@ -596,11 +610,37 @@ include_once("functions.php");
 			{
 				mysql_query("INSERT INTO `kutyatargyak` VALUES ('". $this->id ."', '". $targyID ."', '1')");
 				array_push($this->targyak, $targyID);
+				array_push($this->targyakHord, $targyID);
 				return true;
 			}
 		}
 		return false;
 	}
+	
+	function TargyLeVesz($targyID)
+	{
+		if($this->RajtavanTargy($targyID) && $this->VanTargy($targyID))
+		{
+			mysql_query("UPDATE `kutyatargyak` SET kutyatargyak_hord = '0' WHERE kutyatargyak_kutyaid = '". $this->id ."' and kutyatargyak_targyid = '". $targyID ."'");
+			if(($key = array_search($targyID, $this->targyakHord)) !== false) {
+				unset($this->targyakHord[$key]);
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	function TargyFelVesz($targyID)
+	{
+		if(!$this->RajtavanTargy($targyID) && $this->VanTargy($targyID))
+		{
+			mysql_query("UPDATE `kutyatargyak` SET kutyatargyak_hord = '1' WHERE kutyatargyak_kutyaid = '". $this->id ."' and kutyatargyak_targyid = '". $targyID ."'");
+			array_push($this->targyakHord, $targyID);
+			return true;
+		}
+		return false;
+	}
+	
   }   
   class lotto
   {
