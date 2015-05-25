@@ -1,7 +1,7 @@
 <?php
 include("inc/session.php");
 include("inc/sql.php");
-include("inc/functions.php");
+include("inc/oop.php");
 if(isset($_SESSION[id])){
 if(isset($_GET[id])){
 $idkell=mysql_query("SELECT * FROM adatlap WHERE adatlap_id = '". $_GET[id] ."' and adatlap_aktiv = 1");
@@ -14,11 +14,9 @@ $nev1=htmlentities($kutya2->kutya_nev);
 }else{
 $nev1="<font color=#". $kutya2->kutya_betuszin .">". htmlentities($kutya2->kutya_nev) ."</font>";
 }
-if(file_exists("pic/user/". $_GET[id] .".png")){
-$kep="<a href=pic/user/". $_GET[id] .".png target=_blank><img src=pic.php?id=". $_GET[id] ." border=0></a>";
-}else{
-$kep="<img src=pic/user/avatar.jpg border=0 width=200 height=200>";
-}
+$adatlapKutya = new kutya();
+$adatlapKutya->getKutyaByID($_GET[id]);
+
 if($kutya->adatlap_nem==1){
 $nem="Lány";
 }else{$nem="Fiú";}
@@ -62,7 +60,7 @@ $adat.="<table border=0 cellpadding=0 cellspacing=0><tr><td width=11 height=11 b
 <tr><td align=left width=80>Testmagasság:</td><td align=right width=180>". szamtomagassag($kutya->adatlap_magassag) ."</td></tr>
 <tr><td align=left width=80>Hajszín:</td><td align=right width=180>". szamtohajszin($kutya->adatlap_haj) ."</td></tr>
 <tr><td align=left width=80>Szemszín:</td><td align=right width=180>". szamtoszemszin($kutya->adatlap_szem) ."</td></tr></table>
-</td><td align=center width=402>". $kep ."</td></tr>
+</td><td align=center width=402>". $adatlapKutya->Avatar(200) ."</td></tr>
 <tr background=pic/hatter". $szin .".gif><td align=center colspan=3>Leírás:</td></tr>
 <tr background=pic/hatter". $szin .".gif><td align=left colspan=3 class='forum'>". nl2br(ubb_adatlap($kutya->adatlap_leiras)) ."</td></tr></table>
 <tr><td width=11 height=11 background=pic/balalso". $szin .".jpg></td><td background=pic/hatter". $szin .".gif width=800></td><td width=11 height=11 background=pic/jobbalso". $szin .".jpg></td></tr>
@@ -178,11 +176,9 @@ $toplista=mysql_query("SELECT * FROM adatlap WHERE adatlap_aktiv = 1 and adatlap
 $i=1;$adat.="<u>Toplista</u><br>";
 }
 while($adatlap=mysql_fetch_object($toplista)){
-if(file_exists("pic/user/". $adatlap->adatlap_id .".png")){
-$kep="<a href=pic/user/". $adatlap->adatlap_id .".png target=_blank><img src=pic.php?id=". $adatlap->adatlap_id ."&size=100 border=0></a>";
-}else{
-$kep="<img src=pic/user/avatar.jpg border=0 width=100 height=100>";
-}
+$adatlapKutya = new kutya();
+$adatlapKutya->getKutyaByID($adatlap->adatlap_id);
+
 $kutyus=mysql_query("SELECT * FROM kutya WHERE kutya_id = '". $adatlap->adatlap_id ."'");
 while($kutya=mysql_fetch_object($kutyus)){
 if($kutya->kutya_betuszin=="774411"){
@@ -197,7 +193,7 @@ $adat.="<table border=0 bgcolor=#ffffff><tr>";
 if($i!=0){
 $adat.="<td align=center width=65><big><big><big><big>". $i .".</big></big></big></big></td>";
 }
-$adat.="<td align=center>". $kep ."</td><td width=250><table border=0 cellpadding=0 cellspacing=0 width=520>
+$adat.="<td align=center>". $adatlapKutya->Avatar(100) ."</td><td width=250><table border=0 cellpadding=0 cellspacing=0 width=520>
 <tr><td align=left class='forum' background=pic/hatter8.gif>". ubb_forum($adatlap->adatlap_nev) ."</td><td align=right background=pic/hatter8.gif>Utolsó módosítás: ". str_replace("-",".",$adatlap->adatlap_frissit) ."</td></tr>
 <tr><td align=left class='forum' background=pic/hatter8.gif>Kutyája neve: <a href=kutyak.php?id=". $kutya->kutya_id ." class='feherlink'>". $nev1 ."</a></td><td align=right background=pic/hatter8.gif>Látogatások: ". $adatlap->adatlap_megnez ." db</td></tr>
 <tr><td align=left class='forum'>Nem: ". $nem ."</td><td align=right></td></tr>

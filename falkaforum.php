@@ -1,7 +1,7 @@
 <?php
 include("inc/session.php");
 include("inc/sql.php");
-include("inc/functions.php");
+include("inc/oop.php");
 if(isset($_SESSION[id])){
 $leker=mysql_query("SELECT * FROM kutya WHERE kutya_id = '". $_SESSION[id] ."'");
 while($kutya=mysql_fetch_object($leker)){
@@ -23,11 +23,8 @@ $oldal=$_GET[oldal];
 }else{ $oldal=0; }
 $leker=mysql_query("SELECT * FROM forum INNER JOIN kutya ON forum.forum_kid = kutya.kutya_id WHERE forum_topic = '". $falka->falka_id ."' ORDER BY forum_id DESC limit ". $oldal .",25");
 while($forum=mysql_fetch_object($leker)){
-if(file_exists("pic/user/". $forum->forum_kid .".png")){
-$kep="<a href=pic/user/". $forum->forum_kid .".png target=_blank><img src=pic.php?id=". $forum->forum_kid ."&size=100 border=0></a>";
-}else{
-$kep="<img src=pic/user/avatar.jpg border=0 width=100 height=100>";
-}
+$forumozoKutya = new kutya();
+$forumozoKutya->getKutyaByID($forum->forum_kid);
 if(($fonok==$_SESSION[id]) or ($kisfonok==$_SESSION[id])){
 if($fonok==$_SESSION[id]){
 $admin="<a href=inc/uzenettorol.php?uid=". $forum->forum_id ." class='feherlink'>üzenet törlése</a> | <a href='inc/falkatilto.php?nev=". $forum->kutya_nev  ."' class='feherlink'>kutya kitiltása</a> | ";
@@ -45,7 +42,7 @@ $admin="";
 }
 $adat.="<table border=0 width=750 CELLSPACING=0 CELLPADDING=0><tr bgcolor=#e6ba8e><td align=left class='forum' colspan=2>
 <table border=0 width=750 CELLSPACING=0 CELLPADDING=0><tr><td align=left><a href=kutyak.php?id=". $forum->forum_kid ." class='feherlink'>". $forum->forum_nev ."</a></td><td align=right>". $admin ."". str_replace("-",".",$forum->forum_ido) ."</td></tr></table></td></tr>
-<tr><td bgcolor=#e6ba8e align=center height=105 valign=top width=110><center>". $kep ." </center></td><td align=left valign=top width=640 class='forum'>". nl2br($forum->forum_uzenet) ."</td></tr></table><br>";
+<tr><td bgcolor=#e6ba8e align=center height=105 valign=top width=110><center>". $forumozoKutya->Avatar(100) ." </center></td><td align=left valign=top width=640 class='forum'>". nl2br($forum->forum_uzenet) ."</td></tr></table><br>";
 }
 $hozzaszolasszam=mysql_query("SELECT * FROM forum WHERE forum_topic = '". $falka->falka_id ."'");
 if($oldal!=0){$adat.="<a href=falkaforum.php?id=". $falka->falka_id ."&oldal=". ($oldal-25) ." class='feherlink'>Elõzõ 25 hozzászolás</a>";}
