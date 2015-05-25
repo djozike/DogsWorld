@@ -84,10 +84,43 @@ if(isset($_SESSION[id])){
 		fclose($blogirasAdatok);
 		///blog iras engedelyezese min nap es irastanulasa resz VEGE
 	}
-	else
+	//targy vasarlasa
+	if(isset($_GET[targyid]))
 	{
-	header("Location: ../index.php");
+			$ujTargy = new targy();
+			if($ujTargy->GetTargyByID($_GET[targyid]))
+			{
+					if($ujTargy->ar > $kutyuli->penz)
+					{
+						echo hiba("Nincs elég pénzed!");
+					}
+					else
+					{
+					if($kutyuli->TargyHozzaAdd($_GET[targyid]))
+					{
+						$kutyuli->PenzElvesz($ujTargy->ar);
+					}
+					echo Penz($kutyuli->penz) ."|". $kutyuli->kep();
+					}
+			}
 	}
+	//targy vasarlas vege
+	
+	//targy levetele a kutyarol
+	if(isset($_GET[targyleid]))
+	{
+		$kutyuli->TargyLeVesz($_GET[targyleid]);
+		echo $kutyuli->kep();
+	}
+	//targy levetele a kutyarol vege
+	
+	//targy felvetele a kutyarol
+	if(isset($_GET[targyfelid]))
+	{
+		$kutyuli->TargyFelVesz($_GET[targyfelid]);
+		echo $kutyuli->kep();
+	}
+
 }
 else
 {

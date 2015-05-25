@@ -25,7 +25,8 @@ include_once("functions.php");
     var $online = false;
     var $adatlap = false;
     var $blog = false;
-
+	var $targyak = array();
+	var $targyakHord = array();
 
     function GetKutya($leker) {
         global $ma;
@@ -130,6 +131,22 @@ include_once("functions.php");
                   $this->egyszampont=$egyszampont->egyszampontok_pont;
                   $this->egyszamproba=$egyszampont->egyszampontok_tipp;
               }
+			  
+			  //targyak
+			  $lekerTargyak=mysql_query("SELECT * FROM `kutyatargyak` WHERE `kutyatargyak_kutyaid` = '". $this->id ."'");
+			  $db=0;
+              while($Targyak=mysql_fetch_object($lekerTargyak))
+              {
+                  $this->targyak[$db]=$Targyak->kutyatargyak_targyid;
+				$db++;
+              }
+			  $lekerTargyak=mysql_query("SELECT * FROM `kutyatargyak` WHERE `kutyatargyak_kutyaid` = '". $this->id ."' and `kutyatargyak_hord` = '1'");
+			  $db=0;
+              while($Targyak=mysql_fetch_object($lekerTargyak))
+              {
+                  $this->targyakHord[$db]=$Targyak->kutyatargyak_targyid;
+				$db++;
+              }
         return true;
         }
         return false;
@@ -214,7 +231,19 @@ include_once("functions.php");
     }
     function Kep()
     {
-      return "<img src=pic/kutyak/". kutyaszamtofile($this->fajta) . $this->szin .".png>";
+		$kep="<div style=\"position: relative; left: 0; top: 0;\">
+					<img src=pic/kutyak/". kutyaszamtofile($this->fajta) . $this->szin .".png style=\"position: relative; top: 0; left: 0;\">";
+	
+		for($i=0; $i<sizeof($this->targyakHord);$i++)
+		{
+			$targy = new targy();
+			if($targy->GetTargyByID($this->targyakHord[$i]))
+			{
+				$kep.="<img src=pic/targyak/". kutyaszamtofile($this->fajta) . $targy->file .".png style=\"position: absolute; top: 0; left: 0;\">";
+			}
+		}
+
+		return $kep . "</div>";
     }
     function SulyCsik($w)
     {
@@ -372,7 +401,7 @@ include_once("functions.php");
 	function KolyokMegjelenit()
     {
       if(sizeof($this->kolyok)==0){
-      return "<td>Nincsennek még kölykeid.</td>";
+      return "<td>Nincsenek még kölykeid.</td>";
       }else{
 	  $vissz="";
 	  for($i=0;$i<sizeof($this->kolyok);$i++)
@@ -407,7 +436,7 @@ include_once("functions.php");
     function PenzHozzaad($osszeg)
     {
        $this->penz= $this->penz+$osszeg;
-       mysql_query("UPDATE kutya SET kutya_penz = '". $this->penz ."' WHERE kutya_id = '". $this->id ."'");
+	   mysql_query("UPDATE kutya SET kutya_penz = '". $this->penz ."' WHERE kutya_id = '". $this->id ."'");
        return true;
     }
     function PenzElvesz($osszeg)
@@ -530,18 +559,18 @@ include_once("functions.php");
     function EgyszamMegjelenit($szoveg)
     {
     if($this->Tanult("SZ")){
-    $egyszam="Gondoltam egy számra egy és 75 között...Találd ki! Minél kevesebb tippbõl találod ki annál több pontot ér. <a href=segitseg.php?page=ismerteto#egyszam class='feherlink'>Részletek...</a><br>";
+    $egyszam="<br>Gondoltam egy számra egy és 75 között...Találd ki! Minél kevesebb tippbõl találod ki annál több pontot ér. <a href=segitseg.php?page=ismerteto#egyszam class='feherlink'>Részletek...</a><br><br>";
     if($this->egyszamproba!=-1){
     $egyszam.="<center><select id=egyszamselect style='width: 38px;'>";
     for($i=$this->egyszammin;$i<$this->egyszammax;$i++){$egyszam.="<option value". $i .">". $i ."</option>";}
       $egyszam.="</select> <input type=submit name=rendben value=Tippelek style='width: 80px;' onclick='egyszam()'></center>";
     }
-    $egyszam.="Eheti pontszám: ". $this->egyszampont." ";
+    $egyszam.="<br><center>Eheti pontszám: ". $this->egyszampont."</center>";
     $egyszam.=hiba($szoveg);
     }else{
     $egyszam="Ahhoz, hogy tudj játszani az egyszám játékkal ismerned kell a számokat. Tanítsd meg a számokat leckét a kutyádnak!<br>";
     }
-    $egyszam.="<center><a href=egyszamstat.php class='feherlink'>Egyszám statisztika</a></center>";
+    $egyszam.="<br><center><a href=egyszamstat.php class='feherlink'>Egyszám statisztika</a></center>";
     return $egyszam;
     }
     function TiltOldalrol($ki, $ido)
@@ -561,7 +590,57 @@ include_once("functions.php");
         return false;
     }
   
-  
+	function VanTargy($targyID)
+	{
+		return in_array($targyID, $this->targyak);
+	}
+	
+	function RajtavanTargy($targyID)
+	{
+		return in_array($targyID, $this->targyakHord);
+	}
+	
+	function TargyHozzaAdd($targyID)
+	{
+		$ujTargy = new targy();
+		
+		if($ujTargy->GetTargyByID($_GET[targyid]))
+		{
+			if($ujTargy->AlkalmasFajta($this->fajta) && !$this->VanTargy($targyID))
+			{
+				mysql_query("INSERT INTO `kutyatargyak` VALUES ('". $this->id ."', '". $targyID ."', '1')");
+				array_push($this->targyak, $targyID);
+				array_push($this->targyakHord, $targyID);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	function TargyLeVesz($targyID)
+	{
+		if($this->RajtavanTargy($targyID) && $this->VanTargy($targyID))
+		{
+			mysql_query("UPDATE `kutyatargyak` SET kutyatargyak_hord = '0' WHERE kutyatargyak_kutyaid = '". $this->id ."' and kutyatargyak_targyid = '". $targyID ."'");
+			if(($key = array_search($targyID, $this->targyakHord)) !== false) {
+				unset($this->targyakHord[$key]);
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	function TargyFelVesz($targyID)
+	{
+		if(!$this->RajtavanTargy($targyID) && $this->VanTargy($targyID))
+		{
+			mysql_query("UPDATE `kutyatargyak` SET kutyatargyak_hord = '1' WHERE kutyatargyak_kutyaid = '". $this->id ."' and kutyatargyak_targyid = '". $targyID ."'");
+			array_push($this->targyakHord, $targyID);
+			return true;
+		}
+		return false;
+	}
+	
   }   
   class lotto
   {
@@ -572,5 +651,33 @@ include_once("functions.php");
 	   $this->nyeremeny=fread($handle, filesize("data/lottonyeremeny.txt"));
 	   fclose($handle);
     }
+  }
+  
+  class targy
+  {
+	var $ar=0;
+	var $fajta;
+	var $file;
+  
+	function GetTargyByID($id1) {
+        include("sql.php");
+        $leker=mysql_query("SELECT * FROM targyak WHERE targyak_id = '". $id1 ."'");
+        if(mysql_num_rows($leker)>0)
+        {
+            while($adatok=mysql_fetch_object($leker))
+            {
+              $this->ar=$adatok->targyak_ar;
+			  $this->file=$adatok->targyak_file;
+              $this->fajta=explode("|", $adatok->targyak_fajta);
+            }
+			return true;
+		}
+		return false;
+    }
+	
+	function AlkalmasFajta($mit)
+	{
+		 return in_array($mit, $this->fajta);
+	}
   }
 ?>
