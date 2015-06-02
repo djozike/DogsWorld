@@ -68,7 +68,7 @@ if($_SESSION[id]==$kolyok->kolyok_apa)
 	$mail=$anya->kutya_email;
 }
 if(mysql_query("DELETE FROM kolyok WHERE kolyok_apa = ". $kolyok->kolyok_apa ." and kolyok_anya = ". $kolyok->kolyok_anya ."")){
-mysql_query("INSERT INTO `kutya` VALUES ('', '". $_POST['nev'] ."', '". $_POST['jelszo'] ."', '". $faj ."','". $gen ."','". $szin ."','774411' , '". $nem ."', '". $mail ."', 1, 0, 50, 20, 0, 0,'', ". $apa->kutya_id .",'". $apa->kutya_nev ."',". $anya->kutya_id .",'". $anya->kutya_nev ."',0,0,'". $ip ."','','". $ma ."','',0,0,0,0,0,2,0)",$kapcsolat);
+mysql_query("INSERT IGNORE INTO `kutya` VALUES ('', '". $_POST['nev'] ."', '". $_POST['jelszo'] ."', '". $faj ."','". $gen ."','". $szin ."','774411' , '". $nem ."', '". $mail ."', 1, 0, 50, 20, 0, 0,'', ". $apa->kutya_id .",'". $apa->kutya_nev ."',". $anya->kutya_id .",'". $anya->kutya_nev ."',0,0,'". $ip ."','','". $ma ."','',0,0,0,0,0,2,0)",$kapcsolat);
 }
 header("Location: ../kutyam.php");
 }

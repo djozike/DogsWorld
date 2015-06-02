@@ -33,7 +33,7 @@ header("Location: ../ujkutya.php");
 }
 if($_SESSION['hiba']==""){ 
 $gen=kutyanevtogen($_POST[haz])."|".kutyanevtogen($_POST[haz])."|".kutyanevtogen($_POST[haz])."|".kutyanevtogen($_POST[haz])."|".kutyanevtogen($_POST[haz])."|".kutyanevtogen($_POST[haz])."|".kutyanevtogen($_POST[haz])."|".kutyanevtogen($_POST[haz]); 
-$sql="INSERT INTO `kutya` VALUES ('', '". $_POST['nev'] ."', '". $_POST['jelszo'] ."', '". kutyanevtoszam($_POST[haz]) ."', '". $gen ."','1','774411' , '". $_POST[nem] ."', '". $_POST['mail'] ."', 1, 0, 50, 20, 0, 0, '','','','','',0,0,'". $ip ."','','". $ma ."','',0,0,0,0,0,2,1)";
+$sql="INSERT IGNORE INTO `kutya` VALUES ('', '". $_POST['nev'] ."', '". $_POST['jelszo'] ."', '". kutyanevtoszam($_POST[haz]) ."', '". $gen ."','1','774411' , '". $_POST[nem] ."', '". $_POST['mail'] ."', 1, 0, 50, 20, 0, 0, '','','','','',0,0,'". $ip ."','','". $ma ."','',0,0,0,0,0,2,1)";
 mysql_query($sql);
 $_SESSION['hiba']=ok("Sikeres regisztráció, a kezdõlapon beléphetsz a kutyádhoz! ");
 header("Location: ../ujkutya.php");

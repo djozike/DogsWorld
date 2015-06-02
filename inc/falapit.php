@@ -22,7 +22,7 @@ header("Location: ../falkaalapit.php");
 }else{
 $newpenz=$kutya->kutya_penz-$FALKAALAPIT;
 $pont=$kutya->kutya_egeszseg*$kutya->kutya_kor/100;
-mysql_query("INSERT INTO falka VALUES('', '". $_POST[nev] ."', '". $ma ."','774411', '". $_SESSION[id] ."', '0', '". $pont ."', '". $_POST[leiras] ."', '". $_POST[hatterszin] ."', '". $_POST[hatterkep] ."', '1|0|0|0',0)");
+mysql_query("INSERT IGNORE INTO falka VALUES('', '". $_POST[nev] ."', '". $ma ."','774411', '". $_SESSION[id] ."', '0', '". $pont ."', '". $_POST[leiras] ."', '". $_POST[hatterszin] ."', '". $_POST[hatterkep] ."', '1|0|0|0',0)");
 $idkell=mysql_query("SELECT * FROM falka WHERE falka_nev = '". $_POST[nev] ."'");
 while($falka=mysql_fetch_object($idkell)){
 $fid=$falka->falka_id;
