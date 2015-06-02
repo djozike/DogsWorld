@@ -638,9 +638,14 @@ include_once("functions.php");
 		if($this->RajtavanTargy($targyID) && $this->VanTargy($targyID))
 		{
 			mysql_query("UPDATE `kutyatargyak` SET kutyatargyak_hord = '0' WHERE kutyatargyak_kutyaid = '". $this->id ."' and kutyatargyak_targyid = '". $targyID ."'");
-			if(($key = array_search($targyID, $this->targyakHord)) !== false) {
-				unset($this->targyakHord[$key]);
-			}
+			  $this->targyakHord=array();
+			  $lekerTargyak=mysql_query("SELECT * FROM `kutyatargyak` WHERE `kutyatargyak_kutyaid` = '". $this->id ."' and `kutyatargyak_hord` = '1'");
+			  $db=0;
+              while($Targyak=mysql_fetch_object($lekerTargyak))
+              {
+                  $this->targyakHord[$db]=$Targyak->kutyatargyak_targyid;
+				$db++;
+              }
 			return true;
 		}
 		return false;
