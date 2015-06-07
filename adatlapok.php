@@ -62,7 +62,7 @@ $adat.="<table border=0 cellpadding=0 cellspacing=0><tr><td width=11 height=11 b
 <tr><td align=left width=80>Szemszín:</td><td align=right width=180>". szamtoszemszin($kutya->adatlap_szem) ."</td></tr></table>
 </td><td align=center width=402>". $adatlapKutya->Avatar(200) ."</td></tr>
 <tr background=pic/hatter". $szin .".gif><td align=center colspan=3>Leírás:</td></tr>
-<tr background=pic/hatter". $szin .".gif><td align=left colspan=3 class='forum'>". nl2br(ubb_adatlap($kutya->adatlap_leiras)) ."</td></tr></table>
+<tr background=pic/hatter". $szin .".gif><td align=left colspan=3 class='forum'><div style='width: 810px; overflow-x: auto;'>". nl2br(ubb_adatlap($kutya->adatlap_leiras)) ."</div></td></tr></table>
 <tr><td width=11 height=11 background=pic/balalso". $szin .".jpg></td><td background=pic/hatter". $szin .".gif width=800></td><td width=11 height=11 background=pic/jobbalso". $szin .".jpg></td></tr>
 </td></tr></table></center>";
 $megnez=mysql_query("SELECT * FROM latogatas WHERE latogatas_adatlap = '". $kutya->adatlap_id ."' and latogatas_kutya = '". $_SESSION[id] ."'");
