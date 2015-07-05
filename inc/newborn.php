@@ -51,6 +51,7 @@ for($i=0; $i<7; $i++)
 }
 if($farkas==true){
 $faj=-2;
+$gen=$genek[0] ."|". $genek[0] ."|". $genek[0] ."|".  $genek[0] ."|". $genek[0] ."|".  $genek[0] ."|". $genek[0] ."|".  $genek[0];
 }else{
 $faj=kutyagentoszam($genek[rand(0,7)]);
 }

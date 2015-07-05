@@ -167,7 +167,12 @@ $hazas=$nev1 . " nevû kutya megkért hogy legyen közös kutyátok. Döntsd el, hogy 
 }else{
 if($most>$kolyok->kolyok_ido){
 if($_SESSION[id]==$kolyok->kolyok_tulaj){
-$hazas="Gratulálok! Megszületett az ifjú trónörökös. Tied a dicsõség hogy elnevezd a ". nem($kolyok->kolyok_nem) ."t.<br><form action=inc/newborn.php method=POST>Név:<input type=text name=nev style='width: 110px;' maxlength=16><br>Jelszó:<input type=password name=jelszo style='width: 90px;' maxlength=16><br><center><input type=submit value='Elküld'></center></form><br>". $_SESSION[hibas];
+$kolyokNem = "kan";
+if(nem($kolyok->kolyok_nem) == "szuka")
+{
+$kolyokNem = "szuká";
+}
+$hazas="Gratulálok! Megszületett az ifjú trónörökös. Tied a dicsõség hogy elnevezd a ". $kolyokNem ."t.<br><form action=inc/newborn.php method=POST>Név:<input type=text name=nev style='width: 110px;' maxlength=16><br>Jelszó:<input type=password name=jelszo style='width: 90px;' maxlength=16><br><center><input type=submit value='Elküld'></center></form><br>". $_SESSION[hibas];
 $_SESSION[hibas]="";
 }else{
 $hazas="Gratulálok! Megszületett a kis csöppség. A házastársad adhat neki nevet, neked csak várnod kell.<br><center><a href=inc/nemkolyok.php class='feherlink'>Nem várok tovább</a></center>";
